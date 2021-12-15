@@ -52,52 +52,55 @@ export default function SideBar() {
           <CategoryLoading />
           <CategoryLoading />
           <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
         </>
       ) : (
         <>
-          {parentCategories.map((parent) => (
-            <>
-              <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button
-                      class="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#collapse-${parent._id}`}
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
+          {parentCategories.length === 0 ? (
+            <p>No category found!</p>
+          ) : (
+            parentCategories.map((parent) => (
+              <>
+                <div class="accordion" key={parent._id} id="accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#collapse-${parent._id}`}
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        {parent.name}
+                      </button>
+                    </h2>
+                    <div
+                      id={`collapse-${parent._id}`}
+                      class="accordion-collapse collapse show"
+                      aria-labelledby="headingOne"
+                      data-bs-parent="#accordionExample"
                     >
-                      {parent.name}
-                    </button>
-                  </h2>
-                  <div
-                    id={`collapse-${parent._id}`}
-                    class="accordion-collapse collapse show"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div class="accordion-body">
-                      {subCategories.map((subC) => (
-                        <>
-                          {subC.parentId === parent._id && (
-                            <Link
-                              className="d-block text-decoration-none"
-                              to={`/category/${subC.slug}`}
-                            >
-                              ---{subC.name}
-                            </Link>
-                          )}
-                        </>
-                      ))}
+                      <div class="accordion-body">
+                        {subCategories.map((subC) => (
+                          <div key={subC._id}>
+                            {subC.parentId === parent._id && (
+                              <Link
+                                kye={subC._id}
+                                className="d-block text-decoration-none"
+                                to={`/category/${subC.slug}`}
+                              >
+                                ---{subC.name}
+                              </Link>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ))}
+              </>
+            ))
+          )}
         </>
       )}
     </>

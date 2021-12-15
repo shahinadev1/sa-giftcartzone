@@ -94,7 +94,7 @@ const AllProduct = () => {
         setCategories(res.data.result);
       });
   }, []);
-  if (!Products.length) return <LoadingTop />;
+  if (!Products.length > 0) return <LoadingTop />;
   return (
     <>
       <div className="table-responsive-sm mb-10 ">
@@ -110,47 +110,51 @@ const AllProduct = () => {
             </tr>
           </thead>
           <tbody>
-            {Products.map((product) => (
-              <tr>
-                <th scope="row">
-                  <Link to={`/product/${product.slug}`}>
-                    <img
-                      src={product.image}
-                      style={{ maxWidth: "100px", height: "50px" }}
-                      alt={product.name}
-                    />
-                  </Link>
-                </th>
-                <td>{product?.name}</td>
-                <td>৳{product?.price}</td>
-                <td>{product?.added_date}</td>
-                <td>
-                  <button
-                    className="btn btn-danger bg-transparent mx-2"
-                    onClick={() => handleDelete(product._id)}
-                  >
-                    <DeleteForeverIcon
-                      sx={{ cursor: "pointer", color: "red" }}
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-primary bg-transparent"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    onClick={() => {
-                      setId(product._id);
-                      setDefaultName(product.name);
-                      setDefaultPrice(product.price);
-                      setProductQty(product?.productQty);
-                      setDefaultCId(product.categoryId);
-                    }}
-                  >
-                    <UpdateIcon sx={{ cursor: "pointer", color: "green" }} />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {Products.length === 0 ? (
+              <p>No products found!</p>
+            ) : (
+              Products.map((product) => (
+                <tr>
+                  <th scope="row">
+                    <Link to={`/product/${product.slug}`}>
+                      <img
+                        src={product.image}
+                        style={{ maxWidth: "100px", height: "50px" }}
+                        alt={product.name}
+                      />
+                    </Link>
+                  </th>
+                  <td>{product?.name}</td>
+                  <td>${product?.price}</td>
+                  <td>{product?.added_date}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger bg-transparent mx-2"
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      <DeleteForeverIcon
+                        sx={{ cursor: "pointer", color: "red" }}
+                      />
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-primary bg-transparent"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      onClick={() => {
+                        setId(product._id);
+                        setDefaultName(product.name);
+                        setDefaultPrice(product.price);
+                        setProductQty(product?.productQty);
+                        setDefaultCId(product.categoryId);
+                      }}
+                    >
+                      <UpdateIcon sx={{ cursor: "pointer", color: "green" }} />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

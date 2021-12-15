@@ -4,14 +4,26 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import HomeIcon from "@mui/icons-material/Home";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import GridViewIcon from "@mui/icons-material/GridView";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
+import { styled } from "@mui/material/styles";
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    right: -3,
+    top: -3,
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: "0 4px",
+  },
+}));
 const MobileMenu = () => {
   const navigate = useNavigate();
+  const items = useSelector((state) => state.cartReducer);
   return (
     <AppBar
       position="fixed"
@@ -40,7 +52,9 @@ const MobileMenu = () => {
         </IconButton>
         <Box sx={{ flexGrow: 0.2 }} />
         <IconButton color="inherit">
-          <ShoppingBagIcon />
+          <StyledBadge badgeContent={items.items.length} color="secondary">
+            <ShoppingCartIcon />
+          </StyledBadge>
         </IconButton>
         <Box sx={{ flexGrow: 0.2 }} />
         <IconButton color="inherit">

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./CartModal.css";
+import "./MobileCartModal.css";
 import Items from "./Item";
 import { useSelector } from "react-redux";
 import axios from "axios";
-const CartModal = ({ isOpen, products }) => {
+const MobileCartModal = ({ isOpen, products }) => {
   const { open, setOpen } = isOpen || true;
   const [close, setClose] = useState(false);
   const data = useSelector((state) => state.cartReducer);
@@ -22,11 +22,11 @@ const CartModal = ({ isOpen, products }) => {
   };
   return (
     <div
-      className={`cart-modal shadow-lg border-0 card animate__fadeIn ${
+      className={`mobile cart-modal shadow-lg border-0 card animate__fadeIn ${
         open && "open"
       } ${close ? "close" : ""}`}
     >
-      <div className="card-header bg-primary">
+      <div className="mobile card-header bg-primary">
         <button
           className="btn btn-primary"
           onClick={() => {
@@ -37,7 +37,7 @@ const CartModal = ({ isOpen, products }) => {
           Close
         </button>
       </div>
-      <div className="card-body">
+      <div className="mobile card-body">
         <ul class="list-group">
           {products.length > 0 ? (
             <>
@@ -50,7 +50,7 @@ const CartModal = ({ isOpen, products }) => {
           )}
         </ul>
       </div>
-      <div className="card-footer">
+      <div className="mobile card-footer">
         <div className="discount">
           <form onSubmit={handleDiscount}>
             <div className="row">
@@ -82,4 +82,4 @@ const CartModal = ({ isOpen, products }) => {
   );
 };
 
-export default CartModal;
+export default MobileCartModal;

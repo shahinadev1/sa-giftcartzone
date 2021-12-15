@@ -1,7 +1,8 @@
-import React from "react";
-import useAuth from "../Hooks/useAuth";
+import React, { useState } from "react";
 import TopBarProgress from "react-topbar-progress-indicator";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useAuth from "../Hooks/useAuth";
 
 function AdminRoute({ children }) {
   "";
@@ -12,13 +13,17 @@ function AdminRoute({ children }) {
     },
     shadowBlur: 5,
   });
-  const { user, isAdminLoading, isLoading, isAdmin } = useAuth();
+
+  const state1 = useSelector((state) => state.firebaseReducer);
   const location = useLocation();
   const navigate = useNavigate();
-  if (!user.email && !isAdmin) return <TopBarProgress />;
-  if (!user.email && !isAdmin) {
+  const { user, isAdmin, isAdminLoading, isLoading } = useAuth();
+  console.log(state1);
+  if (isLoading || isAdminLoading) return <TopBarProgress />;
+  if (!user?.email) {
     navigate("/login", { state: location.pathname || "/" });
   }
+  if (!isAdmin) navigate("/");
   return children;
 }
 

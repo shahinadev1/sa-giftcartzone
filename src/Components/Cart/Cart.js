@@ -16,7 +16,7 @@ const Cart = () => {
         </div>
         <div className="cart-body p-3">
           <div className="cart-btn">
-            <span className="cart-currency fw-bold">৳</span> {totalAmount}
+            <span className="cart-currency fw-bold">$</span> {totalAmount}
           </div>
         </div>
       </div>

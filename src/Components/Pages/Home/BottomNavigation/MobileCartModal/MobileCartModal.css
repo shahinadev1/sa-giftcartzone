@@ -1,0 +1,19 @@
+.mobile.cart-modal {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  width: 400px;
+  height: 100vh;
+  transform: translateY(-1000px);
+  transition: transform 1s ease-in-out;
+}
+.mobile.cart-modal.open {
+  transform: translateY(0);
+}
+
+.mobile.cart-modal.close {
+  display: none;
+}

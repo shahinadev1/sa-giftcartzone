@@ -126,8 +126,8 @@ const AllCategory = () => {
           </thead>
           <tbody>
             {!toggle ? (
-              !parentCategories.length > 0 ? (
-                <LoadingTop />
+              parentCategories.length === 0 ? (
+                <p>No Parent category found!</p>
               ) : (
                 parentCategories.map((parent) => (
                   <tr>

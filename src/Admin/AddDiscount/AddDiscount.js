@@ -86,7 +86,7 @@ const AddDiscount = () => {
                   Select type
                 </option>
                 <option value="percentage">Percentage: %</option>
-                <option value="amount">Amount: ৳</option>
+                <option value="amount">Amount: $</option>
               </select>
             </div>
           </div>

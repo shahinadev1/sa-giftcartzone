@@ -57,7 +57,7 @@ const AllDiscounts = () => {
         console.log(err);
       });
   }, []);
-  if (!discounts.length) return <LoadingTop />;
+  if (discounts.length > 0) return <LoadingTop />;
   return (
     <>
       <div className="table-responsive-sm mb-10">
@@ -73,29 +73,33 @@ const AllDiscounts = () => {
             </tr>
           </thead>
           <tbody>
-            {discounts.map((sub) => (
-              <>
-                <tr>
-                  <td>{sub?.name}</td>
-                  <td>{sub?.added_date}</td>
-                  <td>{sub?.date?.expire_date}</td>
-                  <td>
-                    {sub?.amount?.amount} /{" "}
-                    {sub?.amount?.type === "amount" ? "৳" : "%"}
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-danger bg-transparent mx-2"
-                      onClick={() => handleDelete(sub._id)}
-                    >
-                      <DeleteForeverIcon
-                        sx={{ cursor: "pointer", color: "red" }}
-                      />
-                    </button>
-                  </td>
-                </tr>
-              </>
-            ))}
+            {discounts.length === 0 ? (
+              <p>No discount found!</p>
+            ) : (
+              discounts.map((sub) => (
+                <>
+                  <tr>
+                    <td>{sub?.name}</td>
+                    <td>{sub?.added_date}</td>
+                    <td>{sub?.date?.expire_date}</td>
+                    <td>
+                      {sub?.amount?.amount} /{" "}
+                      {sub?.amount?.type === "amount" ? "$" : "%"}
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-danger bg-transparent mx-2"
+                        onClick={() => handleDelete(sub._id)}
+                      >
+                        <DeleteForeverIcon
+                          sx={{ cursor: "pointer", color: "red" }}
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                </>
+              ))
+            )}
           </tbody>
         </table>
       </div>

@@ -98,7 +98,6 @@ export default function Navbar(props) {
   };
   const navigate = useNavigate();
   const isMobile = true;
-  console.log(isAdmin);
   return (
     <Box sx={{ flexGrow: 1, marginBottom: "65px" }}>
       <ElevationScroll {...props}>
@@ -139,7 +138,6 @@ export default function Navbar(props) {
             ) : (
               ""
             )}
-
             <Box sx={{ flexGrow: 1 }} />
             <Box
               sx={{
@@ -207,94 +205,107 @@ export default function Navbar(props) {
                 </Button>
               )}
             </Box>
-            <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                id="basic-button"
-                aria-controls="basic-menu"
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                <MoreIcon />
-              </IconButton>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem
-                  onClick={() => {
-                    navigate("/user/profile");
-                    handleClose();
-                  }}
-                  sx={{ alignItems: "center" }}
+            {user?.email ? (
+              <Box sx={{ display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  id="basic-button"
+                  aria-controls="basic-menu"
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
                 >
-                  <img
-                    src={user?.photoURL}
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      marginRight: "10px",
-                    }}
-                    alt=""
-                  />
-                  {user?.displayName} / {isAdmin ? "admin" : "user"}
-                </MenuItem>
-                <Divider />
-                {isAdmin ? (
+                  <MoreIcon />
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
                   <MenuItem
                     onClick={() => {
-                      navigate("/admin");
+                      navigate("/user/profile");
                       handleClose();
                     }}
+                    sx={{ alignItems: "center" }}
                   >
-                    <PersonIcon
-                      sx={{ fontSize: "18px", marginRight: "10px" }}
+                    <img
+                      src={user?.photoURL}
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        marginRight: "10px",
+                      }}
+                      alt=""
                     />
-                    Dashboard
+                    {user?.displayName} / {isAdmin ? "admin" : "user"}
                   </MenuItem>
-                ) : (
-                  <>
+                  <Divider />
+                  {isAdmin ? (
                     <MenuItem
                       onClick={() => {
-                        navigate("/user/profile");
+                        navigate("/admin");
                         handleClose();
                       }}
                     >
                       <PersonIcon
                         sx={{ fontSize: "18px", marginRight: "10px" }}
                       />
-                      Profile
+                      Dashboard
                     </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        navigate("/user/orders");
-                        handleClose();
-                      }}
-                    >
-                      <ShoppingCartIcon
-                        sx={{ fontSize: "18px", marginRight: "10px" }}
-                      />
-                      My order(s)
-                    </MenuItem>
-                  </>
-                )}
-                <MenuItem
-                  onClick={() => {
-                    LogOut();
-                    handleClose();
-                  }}
-                >
-                  <LogoutIcon sx={{ fontSize: "18px", marginRight: "10px" }} />
-                  Logout
-                </MenuItem>
-              </Menu>
-            </Box>
+                  ) : (
+                    <>
+                      <MenuItem
+                        onClick={() => {
+                          navigate("/user/profile");
+                          handleClose();
+                        }}
+                      >
+                        <PersonIcon
+                          sx={{ fontSize: "18px", marginRight: "10px" }}
+                        />
+                        Profile
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          navigate("/user/orders");
+                          handleClose();
+                        }}
+                      >
+                        <ShoppingCartIcon
+                          sx={{ fontSize: "18px", marginRight: "10px" }}
+                        />
+                        My order(s)
+                      </MenuItem>
+                    </>
+                  )}
+                  <MenuItem
+                    onClick={() => {
+                      LogOut();
+                      handleClose();
+                    }}
+                  >
+                    <LogoutIcon
+                      sx={{ fontSize: "18px", marginRight: "10px" }}
+                    />
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </Box>
+            ) : (
+              <Button
+                variant="contained"
+                size="small"
+                sx={{ display: { md: "none", lg: "none", xs: "block" } }}
+                onClick={() => navigate("/login")}
+                color="secondary"
+                endIcon={<LoginIcon />}
+              ></Button>
+            )}
           </Toolbar>
         </AppBar>
       </ElevationScroll>

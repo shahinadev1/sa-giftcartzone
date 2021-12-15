@@ -6,9 +6,8 @@ import {
   get_total,
   remove,
 } from "../../../redux/reducer/cartReducer";
-import "./Item.css";
 
-const Items = ({ item }) => {
+const Single = ({ item }) => {
   const dispatch = useDispatch();
   const state = useSelector((st) => st.cartReducer);
   const gItem = useSelector((state) =>
@@ -75,4 +74,4 @@ const Items = ({ item }) => {
   );
 };
 
-export default Items;
+export default Single;

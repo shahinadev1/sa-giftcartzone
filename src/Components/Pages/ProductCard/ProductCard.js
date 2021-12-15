@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
         <p className="text-muted product-title-card">{product?.name}</p>
         <p className="text-muted">
           {product?.price}{" "}
-          <span className="currency fw-bold text-muted">৳</span>/{" "}
+          <span className="currency fw-bold text-muted">$</span>/{" "}
           <span>{product?.deliveryTime}</span>
         </p>
         <Button

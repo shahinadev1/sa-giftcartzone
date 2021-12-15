@@ -58,83 +58,90 @@ const Product = () => {
         </div>
       ) : (
         <Container sx={{ backgroundColor: "#fff", padding: "0" }}>
-          <div className="container p-0">
-            <div className="card mb-3 border-0" style={{ maxWidth: "100%" }}>
-              <div className="row g-0">
-                <div className="col-lg-4">
-                  <img
-                    src={product?.image}
-                    className="img-fluid rounded-start shadow-sm"
-                    alt="..."
-                  />
-                </div>
-                <div className="col-lg-8">
-                  <div className="card-body">
-                    <h5 className="card-title">{product?.name}</h5>
-                    <h6 className="subtitle">
-                      <span className="text-primary fw-bold">Price:</span>
-                      {product?.price}৳
-                    </h6>
-                    <p className="card-text">{product?.description}</p>
-                    <p className="card-text">
-                      <small className="text-muted text-primary">
-                        <span className="text-danger">Weight:</span>
-                        <span className="text-primary">
-                          {product?.deliveryTime}
-                        </span>
-                      </small>
-                    </p>
-                    {added?.find((i) => i._id === product._id) ? (
-                      <Button
-                        variant="contained"
-                        size="small"
-                        disabled
-                        sx={{
-                          width: { md: "25%", xs: "100%" },
-                          borderRadius: "15px",
-                        }}
-                      >
-                        already in cart
-                        <Typography
-                          sx={{ fontSize: "18px", marginLeft: "10px" }}
-                        >
-                          +
-                        </Typography>
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        size="small"
-                        onClick={() => {
-                          dispatch(add(product));
-                          get_total();
-                        }}
-                        sx={{
-                          width: { md: "25%", xs: "100%" },
-                          borderRadius: "15px",
-                        }}
-                      >
-                        add to cart
-                        <Typography
-                          sx={{ fontSize: "18px", marginLeft: "10px" }}
-                        >
-                          +
-                        </Typography>
-                      </Button>
-                    )}
-                    {category && (
-                      <Button
-                        variant="contained"
-                        sx={{
-                          display: "block",
-                          my: 2,
-                          background: "transparent",
-                          color: "#333",
-                        }}
-                      >
-                        {category}
-                      </Button>
-                    )}
+          <div className="container">
+            <div className="row justify-center">
+              <div className="col-12">
+                <div
+                  className="card mb-3 border-0"
+                  style={{ maxWidth: "100%" }}
+                >
+                  <div className="row g-0 mt-5">
+                    <div className="col-lg-4 mx-auto">
+                      <img
+                        src={product?.image}
+                        className="img-fluid d-block mx-auto rounded-start shadow-sm"
+                        alt="..."
+                      />
+                    </div>
+                    <div className="col-lg-8 mr-4 mx-auto">
+                      <div className="card-body pl-lg-5">
+                        <h5 className="card-title">{product?.name}</h5>
+                        <h6 className="subtitle">
+                          <span className="text-primary fw-bold">Price:</span>
+                          {product?.price}$
+                        </h6>
+                        <p className="card-text">{product?.description}</p>
+                        <p className="card-text">
+                          <small className="text-muted text-primary">
+                            <span className="text-danger">Weight:</span>
+                            <span className="text-primary">
+                              {product?.deliveryTime}
+                            </span>
+                          </small>
+                        </p>
+                        {added?.find((i) => i._id === product._id) ? (
+                          <Button
+                            variant="contained"
+                            size="small"
+                            disabled
+                            sx={{
+                              width: { md: "25%", xs: "100%" },
+                              borderRadius: "15px",
+                            }}
+                          >
+                            already in cart
+                            <Typography
+                              sx={{ fontSize: "18px", marginLeft: "10px" }}
+                            >
+                              +
+                            </Typography>
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="contained"
+                            size="small"
+                            onClick={() => {
+                              dispatch(add(product));
+                              get_total();
+                            }}
+                            sx={{
+                              width: { md: "25%", xs: "100%" },
+                              borderRadius: "15px",
+                            }}
+                          >
+                            add to cart
+                            <Typography
+                              sx={{ fontSize: "18px", marginLeft: "10px" }}
+                            >
+                              +
+                            </Typography>
+                          </Button>
+                        )}
+                        {category && (
+                          <Button
+                            variant="contained"
+                            sx={{
+                              display: "block",
+                              my: 2,
+                              background: "transparent",
+                              color: "#333",
+                            }}
+                          >
+                            {category}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

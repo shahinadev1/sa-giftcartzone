@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import FirebaseAPP from "../firebase/firebase.init";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   onAuthStateChanged,
   getAuth,
@@ -15,8 +16,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import axios from "axios";
+import { updateAdmin, updateUser } from "../redux/reducer/firebaseReducer";
 FirebaseAPP();
 function useFirebase() {
+  const dispatch = useDispatch();
   //redux
   const navigate = useNavigate();
   //states
@@ -25,10 +28,7 @@ function useFirebase() {
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [parentCategories, setParentCategories] = useState([]);
-  const [subCategories, setSubCategories] = useState([]);
   const [isError, setIsError] = useState(false);
-  const [fetchLoading, setFetchLoading] = useState(false);
   //auth
   const auth = getAuth();
   //providers
@@ -50,16 +50,6 @@ function useFirebase() {
             sendEmailVerification(auth.currentUser)
               .then(() => {
                 setIsError(false);
-                setMessage(
-                  "Account created successfully.. please verify your account. check your email."
-                );
-                Swal.fire({
-                  icon: "success",
-                  title:
-                    "Account created successfully.. please verify your account. check your email.",
-                  showConfirmButton: true,
-                  timer: 1500,
-                });
                 navigate(route);
               })
               .catch((err) => {
@@ -104,11 +94,7 @@ function useFirebase() {
       })
       .catch((err) => {
         setIsError(true);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+        console.log(err);
         setMessage("");
       })
       .finally(() => {
@@ -178,6 +164,7 @@ function useFirebase() {
       );
     } catch (error) {
       // set
+      console.log(error);
     }
   };
 
@@ -204,29 +191,38 @@ function useFirebase() {
   };
 
   //load admin
-  useEffect(() => {
+  const fetchAdmin = (user) => {
     setIsAdminLoading(true);
     axios
       .get(`https://intense-basin-48901.herokuapp.com/users/${user.email}`)
       .then((res) => {
-        if (res.data.result[0]?.isAdmin) {
-          setIsAdmin(true);
+        if (res.status === 200) {
+          dispatch(updateAdmin(res.data.result[0]));
+          setIsAdmin(res.data.result[0].isAdmin);
         }
       })
       .catch((err) => {
         console.log(err);
-        setIsAdmin(false);
+        dispatch(updateAdmin({}));
       })
       .finally(() => {
         setIsAdminLoading(false);
       });
-  }, [user]);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        const { displayName, email } = user;
+        const { displayName, emailVerified, email, photoURL } = user;
+        const data = {
+          displayName,
+          emailVerified,
+          email,
+          photoURL,
+        };
+        dispatch(updateUser(data));
+        fetchAdmin(user);
         setMessage("");
       } else {
         setUser({});
@@ -239,16 +235,13 @@ function useFirebase() {
 
   return {
     createAccount,
-    parentCategories,
     isAdminLoading,
     isAdmin,
     googleSignIn,
-    subCategories,
     user,
     isLoading,
     LogOut,
     loginWithEmailAndPassword,
-    fetchLoading,
     isError,
     message,
     resetPassword,

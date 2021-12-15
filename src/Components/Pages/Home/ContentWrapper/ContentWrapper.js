@@ -30,6 +30,9 @@ const ContentWrapper = () => {
                 const filteredProducts = res.data.result.filter(
                   (p) => p.categoryId === id
                 );
+                if (filteredProducts.length < 0) {
+                  setProducts(res.data.result);
+                }
                 setProducts(filteredProducts);
                 console.log(products, res.data.result);
               })
@@ -69,13 +72,9 @@ const ContentWrapper = () => {
                     <Loading />
                     <Loading />
                     <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
                   </>
+                ) : products.length === 0 ? (
+                  <p>No product found!</p>
                 ) : (
                   products.map((p) => (
                     <div className="col">

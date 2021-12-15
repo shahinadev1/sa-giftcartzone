@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useSelector } from "react-redux";
+import useAuth from "../../../Hooks/useAuth";
 
 const Profile = () => {
-  const user = useSelector((state) => state.firebaseInfo.user);
+  const { user } = useAuth();
   return (
     <div className="card border-0 shadow-sm ">
       <div className="card-header bg-light border-0 px-2">
@@ -56,7 +56,8 @@ const Profile = () => {
                 type="button"
                 class="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal">
+                data-bs-target="#exampleModal"
+              >
                 Launch demo modal
               </button>
 
@@ -66,7 +67,8 @@ const Profile = () => {
                 id="exampleModal"
                 tabindex="-1"
                 aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+                aria-hidden="true"
+              >
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -77,7 +79,8 @@ const Profile = () => {
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                        aria-label="Close"
+                      ></button>
                     </div>
                     <div class="modal-body">
                       <form>
