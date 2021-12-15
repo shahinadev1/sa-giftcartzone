@@ -10,6 +10,9 @@ const ProductCard = ({ product }) => {
       className="card product-card shadow-sm"
       style={{ backgroundColor: "#fff" }}
     >
+      <span className="price-bage">
+        <del>${product?.regularPrice}</del>/${product?.price}
+      </span>
       <div
         style={{
           backgroundImage: `url(${
@@ -25,19 +28,35 @@ const ProductCard = ({ product }) => {
       <div className="card-body">
         <p className="text-muted product-title-card">{product?.name}</p>
         <p className="text-muted">
-          {product?.price}{" "}
-          <span className="currency fw-bold text-muted">$</span>/{" "}
+          <del>
+            {product?.regularPrice}
+            <span className="currency fw-bold text-muted">$</span>
+          </del>{" "}
+          {product?.price}
+          <span className="currency fw-bold text-muted">$</span> /{" "}
           <span>{product?.deliveryTime}</span>
         </p>
-        <Button
-          variant="contained"
-          size="small"
-          onClick={() => navigate(`${"/product/" + product?.slug}`)}
-          sx={{ width: "100%", borderRadius: "15px" }}
-        >
-          View Details
-          <VisibilityIcon sx={{ fontSize: "18px", marginLeft: "10px" }} />
-        </Button>
+        {product.productQty <= 1 ? (
+          <Button
+            variant="contained"
+            size="small"
+            disabled
+            sx={{ width: "100%", borderRadius: "15px" }}
+          >
+            Out of Stock
+            <VisibilityIcon sx={{ fontSize: "18px", marginLeft: "10px" }} />
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => navigate(`${"/product/" + product?.slug}`)}
+            sx={{ width: "100%", borderRadius: "15px" }}
+          >
+            View Details
+            <VisibilityIcon sx={{ fontSize: "18px", marginLeft: "10px" }} />
+          </Button>
+        )}
       </div>
     </div>
   );

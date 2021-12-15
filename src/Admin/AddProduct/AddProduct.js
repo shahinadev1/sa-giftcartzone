@@ -29,6 +29,7 @@ const AddProduct = () => {
   const [name, setName] = useState("");
   const [productQty, setProductQty] = useState(0);
   const [price, setPrice] = useState("");
+  const [regularPrice, setRegularPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
@@ -114,6 +115,7 @@ const AddProduct = () => {
     const data = {
       name,
       price,
+      regularPrice,
       description,
       categoryId,
       deliveryTime,
@@ -147,7 +149,7 @@ const AddProduct = () => {
     <div className="mb-10">
       <form className="my-3" onSubmit={handleSubmit}>
         <div className="row mb-3">
-          <div className="col-lg-6">
+          <div className="col-lg-12">
             <TextField
               id="standard-basic"
               required
@@ -157,6 +159,8 @@ const AddProduct = () => {
               variant="standard"
             />
           </div>
+        </div>
+        <div className="row mb-3">
           <div className="col-lg-6">
             <TextField
               type="number"
@@ -165,6 +169,17 @@ const AddProduct = () => {
               onChange={(e) => setPrice(e.target.value)}
               fullWidth
               label="Product price"
+              variant="standard"
+            />
+          </div>
+          <div className="col-lg-6">
+            <TextField
+              type="number"
+              required
+              id="standard-basic"
+              onChange={(e) => setRegularPrice(e.target.value)}
+              fullWidth
+              label="Regular price"
               variant="standard"
             />
           </div>

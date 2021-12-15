@@ -10,10 +10,12 @@ const AllProduct = () => {
   const [name, setName] = useState("");
   const [defaultName, setDefaultName] = useState("");
   const [defaultPrice, setDefaultPrice] = useState("");
+  const [defaultRegularPrice, setDefaultRegularPrice] = useState("");
   const [defaultQty, setProductQty] = useState("");
   const [productQty, setProductQty1] = useState("");
   const [defaultCategoryId, setDefaultCId] = useState("");
   const [price, setPrice] = useState("");
+  const [regularPrice, setRegularPrice] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [isUpdate, setUpdate] = useState(false);
@@ -23,6 +25,7 @@ const AllProduct = () => {
     const data = {
       name: name || defaultName,
       price: price || defaultPrice,
+      regularPrice: regularPrice | defaultRegularPrice,
       categoryId: category || defaultCategoryId,
       productQty: productQty || defaultQty,
       slug:
@@ -125,7 +128,9 @@ const AllProduct = () => {
                     </Link>
                   </th>
                   <td>{product?.name}</td>
-                  <td>${product?.price}</td>
+                  <td>
+                    <del>${product?.regularPrice}</del> | ${product?.price}
+                  </td>
                   <td>{product?.added_date}</td>
                   <td>
                     <button
@@ -145,6 +150,7 @@ const AllProduct = () => {
                         setId(product._id);
                         setDefaultName(product.name);
                         setDefaultPrice(product.price);
+                        setDefaultRegularPrice(product.regularPrice);
                         setProductQty(product?.productQty);
                         setDefaultCId(product.categoryId);
                       }}
@@ -216,6 +222,19 @@ const AllProduct = () => {
                     id="message-text"
                     type="number"
                     defaultValue={defaultPrice}
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">
+                    Regular Price:
+                  </label>
+                  <input
+                    onBlur={(e) => setRegularPrice(e.target.value)}
+                    class="form-control"
+                    id="message-text"
+                    type="text"
+                    defaultValue={defaultRegularPrice}
                     required
                   />
                 </div>

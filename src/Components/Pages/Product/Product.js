@@ -78,6 +78,12 @@ const Product = () => {
                         <h5 className="card-title">{product?.name}</h5>
                         <h6 className="subtitle">
                           <span className="text-primary fw-bold">Price:</span>
+                          <del>
+                            {product?.regularPrice}
+                            <span className="currency fw-bold text-muted">
+                              $
+                            </span>
+                          </del>{" "}
                           {product?.price}$
                         </h6>
                         <p className="card-text">{product?.description}</p>
