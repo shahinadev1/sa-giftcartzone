@@ -1,0 +1,9 @@
+export { default as AddProduct } from "./AddProduct/AddProduct";
+export { default as AllProduct } from "./AddProduct/AllProduct/AllProduct";
+export { default as AddCategory } from "./AddCategory/AddCategory";
+export { default as AllCategory } from "./AddCategory/AllCategory/AllCategory";
+export { default as AllOrders } from "./AllOrders/AllOrders";
+export { default as AddDiscount } from "./AddDiscount/AddDiscount";
+export { default as ChangePasswordAdmin } from "./ChangePassword/ChangePassword";
+export { default as Dashboard } from "./Home/Home";
+export { default as SubCategory } from "./AddCategory/SubCategory/SubCategory";

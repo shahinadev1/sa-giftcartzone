@@ -1,0 +1,18 @@
+/* // Small devices (landscape phones, 576px and up) */
+.h-custom {
+  height: 100vh !important;
+}
+.side-sticky {
+  position: sticky;
+  top: 10px;
+}
+main {
+  background-color: #eeee !important;
+  margin-bottom: 100px !important;
+  padding: 10px;
+}
+@media (max-width: 576px) {
+  .custom-display {
+    display: none !important;
+  }
+}
