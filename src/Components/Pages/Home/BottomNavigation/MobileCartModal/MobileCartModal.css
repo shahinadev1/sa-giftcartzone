@@ -1,19 +1,96 @@
 .mobile.cart-modal {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  bottom: 0;
-  right: 0;
+  z-index: 1 !important;
   background-color: #fff;
-  width: 400px;
-  height: 100vh;
-  transform: translateY(-1000px);
-  transition: transform 1s ease-in-out;
+  width: 100vw;
+  height: 90vh;
+  transform: translateY(800px);
+  transition: transform 150ms ease-in-out;
 }
 .mobile.cart-modal.open {
-  transform: translateY(0);
+  transform: translateY(77px);
 }
 
 .mobile.cart-modal.close {
   display: none;
+}
+.mobile.cart-header {
+  background: red !important;
+  margin-top: 100px;
+}
+.mobile.item-img {
+  width: 25px;
+  height: 25px;
+}
+.mobile.col-custom-4 {
+  justify-content: center !important;
+  align-content: center !important;
+  display: grid !important;
+}
+.d-custom span {
+  display: block;
+  color: #333 !important;
+}
+
+.item-container {
+  color: #333 !important;
+  width: 100%;
+  display: flex;
+  border-bottom: 3px solid #444;
+  position: relative;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+}
+.buttons {
+  height: max-content;
+  background-color: rgb(221, 212, 212);
+  width: 23px;
+  color: rgba(75, 65, 65, 0.933);
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-right: 0;
+  font-weight: 600;
+}
+.buttons p {
+  margin: 0;
+  cursor: pointer;
+}
+.buttons span {
+  font-size: 12px;
+}
+/* .buttons p:first-child {
+  background: green;
+} */
+/* .buttons p:last-child {
+  background: rgb(246, 50, 50);
+} */
+.m-item-media > img {
+  width: 32px;
+  height: 32px;
+}
+.m-title {
+  font-size: 13px;
+}
+.m-item-media {
+  margin: 0 8px;
+  margin-left: 10px;
+}
+.m-item-info {
+  list-style: none;
+  margin-left: 4px;
+}
+.m-item-info li {
+  padding: 0;
+  margin: 0;
+}
+.m-remove-btn {
+  position: absolute;
+  top: -12px;
+  right: -6px;
+  list-style: none;
+  font-size: 15px;
+  cursor: pointer;
+  width: max-content;
+  width: max-content;
 }

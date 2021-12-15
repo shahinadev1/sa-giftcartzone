@@ -3,10 +3,11 @@ import ProductCard from "../../ProductCard/ProductCard";
 import SideBar from "../SideBar/SideBar";
 import "./ContentWrapper.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../common/Loading/Loading";
 const ContentWrapper = () => {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
   const { slug } = useParams();
   useEffect(() => {
     if (!slug) {
@@ -30,11 +31,8 @@ const ContentWrapper = () => {
                 const filteredProducts = res.data.result.filter(
                   (p) => p.categoryId === id
                 );
-                if (filteredProducts.length < 0) {
-                  setProducts(res.data.result);
-                }
+                if (filteredProducts.length === 0) navigate("/");
                 setProducts(filteredProducts);
-                console.log(products, res.data.result);
               })
               .catch((err) => {
                 console.log(err);
@@ -43,6 +41,9 @@ const ContentWrapper = () => {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          if (products.length === 0) navigate("/");
         });
     }
   }, [slug]);
@@ -58,14 +59,16 @@ const ContentWrapper = () => {
       });
   }, []);
   return (
-    <main className="pt-2">
-      <section className="container-fluid">
+    <main className="pt-2 h-100">
+      <section className="container-fluid h-100">
         <div className="row">
           <div className="col-lg-8">
             <div className="container p-0">
               <div className="row row-cols-1 row-cols-lg-3 g-lg-4 g-2">
                 {!products.length > 0 ? (
                   <>
+                    <Loading />
+                    <Loading />
                     <Loading />
                     <Loading />
                     <Loading />

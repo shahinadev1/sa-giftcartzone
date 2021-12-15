@@ -5,71 +5,60 @@ import {
   dencrement,
   get_total,
   remove,
-} from "../../../redux/reducer/cartReducer";
+} from "../../../../redux/reducer/cartReducer";
 
 const Single = ({ item }) => {
   const dispatch = useDispatch();
-  const state = useSelector((st) => st.cartReducer);
+  const state1 = useSelector((st) => st.cartReducer);
   const gItem = useSelector((state) =>
     state.cartReducer.items.find((p) => p._id === item._id)
   );
   return (
     <>
-      <li className="row">
-        <div
-          className="col-1 d-flex justify-center align-items-center align-content-center"
-          style={{ flexDirection: "column" }}
-        >
-          <button
-            className="btn btn-primary p-1"
+      <div className="item-container">
+        <div className="buttons">
+          <p
             onClick={() => {
               dispatch(increment(item._id));
               dispatch(get_total());
             }}
           >
             +
-          </button>
-          <p style={{ fontSize: 14, margin: 0, textAlign: "center" }}>
-            {gItem?.quintity}
           </p>
-          <button
-            className="btn btn-success p-1"
+          <span>{gItem.quintity} </span>
+          <p
             onClick={() => {
               dispatch(dencrement(item._id));
               dispatch(get_total());
             }}
           >
             -
-          </button>
+          </p>
         </div>
-        <div className="col-11">
-          <div className="row justify-around">
-            <div className="col-4">
-              <img src={item.image} className="item-img" alt="" />
-            </div>
-            <div className="col-8 mx-auto">
-              <span className="d-block">{item.name}</span>
-              <span className="d-block text-secondary">
-                unit price: {item.price} $
-              </span>
-              <span className="d-block text-secondary">
-                Delivery: {item.deliveryTime}
-              </span>
-              <button
-                className="btn btn-danger p-0"
-                onClick={() => {
-                  dispatch(remove(item._id));
-                  dispatch(get_total());
-                }}
-              >
-                Remove
-              </button>
-            </div>
-          </div>
+        <div className="m-item-media">
+          <img src={gItem.image} alt="" />
         </div>
-      </li>
-
-      <hr />
+        <div className="m-item-info">
+          <li>
+            <span className="m-title">{gItem.name}</span>
+          </li>
+          <li>
+            <span className="m-title">Unit Price:{gItem.price}$</span>
+          </li>
+          <li>
+            <span className="m-title">{gItem.deliveryTime}</span>
+          </li>
+        </div>
+        <li
+          className="m-remove-btn"
+          onClick={() => {
+            dispatch(remove(item._id));
+            dispatch(get_total());
+          }}
+        >
+          <span className="m-title">X</span>
+        </li>
+      </div>
     </>
   );
 };

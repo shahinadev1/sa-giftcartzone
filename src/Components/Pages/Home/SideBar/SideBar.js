@@ -47,11 +47,6 @@ export default function SideBar() {
           <CategoryLoading />
           <CategoryLoading />
           <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
         </>
       ) : (
         <>

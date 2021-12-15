@@ -4,10 +4,10 @@ import Stack from "@mui/material/Stack";
 
 export default function Loading() {
   return (
-    <Stack spacing={1}>
-      <Skeleton variant="rectangular" width={250} height={370} />
-      <Skeleton variant="text" />
-      <Skeleton variant="text" />
+    <Stack spacing={1} sx={{ marginBottom: { sm: "20px" } }}>
+      <Skeleton variant="rectangular" fullWidth height={370} />
+      <Skeleton variant="text" fullWidth />
+      <Skeleton variant="text" fullWidth />
     </Stack>
   );
 }

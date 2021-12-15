@@ -3,20 +3,3 @@
   width: 32px !important;
   margin-right: 10px;
 }
-.accordion-button:hover {
-  animation-name: scaleAni;
-  animation-delay: 0s;
-  animation-duration: calc(2 * 1000ms);
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes scaleAni {
-  0% {
-    transform: translateX(0px);
-  }
-
-  100% {
-    transform: translateX(10px);
-  }
-}
