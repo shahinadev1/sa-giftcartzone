@@ -3,10 +3,8 @@ import "./ProductCard.css";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useLocation } from "react-router-dom";
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
-  const location = useLocation();
   return (
     <div
       className="card product-card shadow-sm"
@@ -34,15 +32,7 @@ const ProductCard = ({ product }) => {
         <Button
           variant="contained"
           size="small"
-          onClick={() =>
-            navigate(
-              `${
-                location.pathname === "/"
-                  ? "/product/" + product?.slug
-                  : location.pathname + product?.slug
-              }`
-            )
-          }
+          onClick={() => navigate(`${"/product/" + product?.slug}`)}
           sx={{ width: "100%", borderRadius: "15px" }}
         >
           View Details

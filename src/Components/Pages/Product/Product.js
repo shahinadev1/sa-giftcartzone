@@ -10,7 +10,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { add, get_total } from "../../../redux/reducer/cartReducer";
-import TopBarProgress from "../../Components/common/Loading/TopBarProgress";
+import LoadingTop from "../../../Components/common/Loading/LoadingTop";
 const Product = () => {
   const [value, setValue] = useState("1");
   const [product, setProduct] = useState({});
@@ -29,7 +29,7 @@ const Product = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:8080/products/`)
+      .get(`https://intense-basin-48901.herokuapp.com/products/`)
       .then((res) => {
         const currentProduct = res.data.result.filter((p) => p.slug === slug);
         setProduct(currentProduct[0]);
@@ -44,8 +44,8 @@ const Product = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
-  if (isLoading) return <TopBarProgress />;
+  }, [slug]);
+  if (isLoading) return <LoadingTop />;
   if (!product) navigate("/");
 
   return (
