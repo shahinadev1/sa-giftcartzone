@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextField, Input } from "@material-ui/core";
 import axios from "axios";
+import Swal from "sweetalert2";
 const AddCategory = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,15 +22,24 @@ const AddCategory = () => {
       )
       .then((res) => {
         if (res.data.status === 200) {
-          alert("category successfully added..");
+          Swal.fire({
+            icon: "success",
+            title: "Category has been added! Successfully.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       })
       .catch((err) => {
-        alert("Something is wrong..");
-        console.log(err.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
       })
       .finally(() => {
         setIsLoading(false);
+        e.target.reset();
       });
   };
   return (

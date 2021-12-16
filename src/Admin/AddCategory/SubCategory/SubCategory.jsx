@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import LoadingTop from '../../../Components/common/Loading/LoadingTop'
+import LoadingTop from "../../../Components/common/Loading/LoadingTop";
 import { TextField } from "@material-ui/core";
+import Swal from "sweetalert2";
 const SubCategory = () => {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -20,14 +21,24 @@ const SubCategory = () => {
       .post("https://intense-basin-48901.herokuapp.com/add-sub-category", data)
       .then((res) => {
         if (res.data.status === 200) {
-          alert("category added successfully..");
+          Swal.fire({
+            icon: "success",
+            title: "Category has been added! Successfully.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
       })
       .catch((err) => {
-        alert("something is wrong..");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
       })
       .finally(() => {
         setIsLoading(false);
+        e.target.reset();
       });
   };
 
@@ -67,7 +78,8 @@ const SubCategory = () => {
               name="parentCategory"
               id="parent-category"
               className="form-control"
-              onInput={(e) => setParentId(e.target.value)}>
+              onInput={(e) => setParentId(e.target.value)}
+            >
               <option value="0" disabled selected>
                 Select parent category
               </option>

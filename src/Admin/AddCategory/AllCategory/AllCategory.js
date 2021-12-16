@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import UpdateIcon from "@mui/icons-material/Update";
 import "./AllCategory.css";
 import LoadingTop from "../../../Components/common/Loading/LoadingTop";
+import Swal from "sweetalert2";
 const AllCategory = () => {
   const [parentCategories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
@@ -12,10 +13,11 @@ const AllCategory = () => {
   const [defaultName, setDefaultName] = useState("");
   const [isUpdate, setUpdate] = useState(false);
   const [id, setId] = useState("");
+  const modalRef = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      name,
+      name: name,
       slug: name.toLowerCase().replace(" ", "-"),
       added_date: new Date().toLocaleDateString(),
     };
@@ -29,31 +31,80 @@ const AllCategory = () => {
     axios
       .put(url, data)
       .then((res) => {
-        alert("updated successfully..");
+        Swal.fire({
+          icon: "success",
+          title: "Category has been updated! Successfully.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        modalRef.current.click();
         setUpdate(true);
       })
       .catch((err) => {
-        alert("something is wrong...");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
       });
   };
-  const handleDelete = (id) => {
-    if (window.confirm("are you sure. to delete??")) {
-      let url = `https://intense-basin-48901.herokuapp.com/parent-category`;
-      if (!toggle) {
-        url = `https://intense-basin-48901.herokuapp.com/parent-category/${id}`;
-      } else {
-        url = `https://intense-basin-48901.herokuapp.com/sub-category/${id}`;
+  const handleDelete = (ID) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            `https://intense-basin-48901.herokuapp.com/parent-category/${ID}`
+          )
+          .then((res) => {
+            Swal.fire("Deleted!", "category has been deleted.", "success");
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          })
+          .finally(() => setUpdate(true));
       }
-      axios
-        .delete(url)
-        .then((res) => {
-          alert("deleted successfully..");
-          setUpdate(true);
-        })
-        .catch((err) => {
-          alert("something is wrong...");
-        });
-    }
+    });
+  };
+  const handleDelete2 = (ID) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(
+            `https://intense-basin-48901.herokuapp.com/sub-category/${ID}`
+          )
+          .then((res) => {
+            Swal.fire("Deleted!", "category has been deleted.", "success");
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+            });
+          })
+          .finally(() => setUpdate(true));
+      }
+    });
   };
 
   useEffect(() => {
@@ -64,7 +115,8 @@ const AllCategory = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setUpdate(false));
     axios
       .get("https://intense-basin-48901.herokuapp.com/sub-category")
       .then((res) => {
@@ -72,7 +124,8 @@ const AllCategory = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setUpdate(false));
   }, [isUpdate]);
 
   useEffect(() => {
@@ -83,7 +136,8 @@ const AllCategory = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setUpdate(false));
     axios
       .get("https://intense-basin-48901.herokuapp.com/sub-category")
       .then((res) => {
@@ -91,7 +145,8 @@ const AllCategory = () => {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setUpdate(false));
   }, [isUpdate, toggle]);
 
   useEffect(() => {
@@ -178,7 +233,7 @@ const AllCategory = () => {
                   <td>
                     <button
                       className="btn btn-danger bg-transparent mx-2"
-                      onClick={() => handleDelete(sub._id)}
+                      onClick={() => handleDelete2(sub._id)}
                     >
                       <DeleteForeverIcon
                         sx={{ cursor: "pointer", color: "red" }}
@@ -259,6 +314,7 @@ const AllCategory = () => {
             </div>
             <div class="modal-footer">
               <button
+                ref={modalRef}
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"

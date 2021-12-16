@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
 import UpdateIcon from "@mui/icons-material/Update";
 import LoadingTop from "../../../Components/common/Loading/LoadingTop";
+import Swal from "sweetalert2";
 const AllProduct = () => {
   const [Products, setProducts] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -20,6 +21,7 @@ const AllProduct = () => {
   const [categories, setCategories] = useState([]);
   const [isUpdate, setUpdate] = useState(false);
   const [id, setId] = useState("");
+  const closeModalRef = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -37,49 +39,48 @@ const AllProduct = () => {
     axios
       .put(url, data)
       .then((res) => {
-        alert("updated successfully..");
+        Swal.fire({
+          icon: "success",
+          title: "Product updated successfully..",
+          showConfirmButton: true,
+          timer: 1500,
+        });
+        closeModalRef.current.click();
         setUpdate(true);
       })
       .catch((err) => {
-        alert("something is wrong...");
-      });
-  };
-  const handleDelete = (id) => {
-    if (window.confirm("are you sure. to delete??")) {
-      const url = `https://intense-basin-48901.herokuapp.com/products/${id}`;
-      axios
-        .delete(url)
-        .then((res) => {
-          alert("deleted successfully..");
-          setUpdate(true);
-        })
-        .catch((err) => {
-          alert("something is wrong...");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
         });
-    }
+      });
   };
 
-  useEffect(() => {
-    axios
-      .get("https://intense-basin-48901.herokuapp.com/products")
-      .then((res) => {
-        setProducts(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [isUpdate]);
-
-  useEffect(() => {
-    axios
-      .get("https://intense-basin-48901.herokuapp.com/products")
-      .then((res) => {
-        setProducts(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [isUpdate, toggle]);
+  const handleDelete = (delId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`https://intense-basin-48901.herokuapp.com/products/${delId}`)
+          .then((res) => {
+            const restproducts = Products.filter((p) => p._id !== delId);
+            setProducts(restproducts);
+            Swal.fire("Deleted!", "The product has been deleted.", "success");
+          })
+          .catch((err) => {
+            alert("something is wrong...");
+          });
+      }
+    });
+  };
 
   useEffect(() => {
     axios
@@ -283,6 +284,7 @@ const AllProduct = () => {
             </div>
             <div class="modal-footer">
               <button
+                ref={closeModalRef}
                 type="button"
                 class="btn btn-secondary"
                 data-bs-dismiss="modal"

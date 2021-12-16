@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   TextField,
-  Button,
   FormControl,
   Input,
   Select,
   InputLabel,
   MenuItem,
-  IconButton,
 } from "@material-ui/core";
 import {
   getStorage,
@@ -19,8 +17,8 @@ import {
 
 import "./AddProduct.css";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 const AddProduct = () => {
-  const { user } = useAuth();
   const [previewImg, setPreviewImg] = useState(null);
   const [categoryId, setCategoryId] = useState("");
   const [subCategories, setSubCategories] = useState([]);
@@ -87,18 +85,28 @@ const AddProduct = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const oldData = { ...data };
           oldData.image = downloadURL;
-          console.log(oldData);
           axios
             .post(
               "https://intense-basin-48901.herokuapp.com/add-product",
               oldData
             )
             .then((res) => {
-              console.log(res.data);
-              alert("product added successfully..");
+              console.log(res.data.result);
+              if (res.data.result._id) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Product has been added! Successfully.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
             })
             .catch((err) => {
-              alert("something is wrong..");
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
             })
             .finally(() => {
               setIsLoading(false);
@@ -123,7 +131,16 @@ const AddProduct = () => {
       slug: name.toLowerCase().replace(" ", "-"),
       added_date: new Date().toLocaleDateString(),
     };
-    handleUpdate(img, data, e);
+    console.log(data);
+    if (!categoryId | !img) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "all filed are required!",
+      });
+    } else {
+      handleUpdate(img, data, e);
+    }
   };
 
   useEffect(() => {

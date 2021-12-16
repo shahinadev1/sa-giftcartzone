@@ -33,6 +33,7 @@ import Checkout from "./Components/Pages/Checkout/Checkout";
 import Thanks from "./Components/Pages/Checkout/Thanks/Thanks";
 function App() {
   const { user } = useAuth();
+
   return (
     <>
       <Navbar />
@@ -41,11 +42,7 @@ function App() {
         <Route path="/category/:slug" element={<Home />} />
         <Route
           path="/checkout"
-          element={
-            <PrivateRoute>
-              <Checkout />
-            </PrivateRoute>
-          }
+          element={user.email ? <Checkout /> : <Navigate replace to="/login" />}
         />
         <Route
           path="/thanks"

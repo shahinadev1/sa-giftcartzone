@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 import { emptyCart } from "../../../redux/reducer/cartReducer";
 import axios from "axios";
+import BTC from "./btc.png";
 import useAuth from "../../../Hooks/useAuth";
 const Checkout = () => {
   const { user } = useAuth();
@@ -81,7 +82,7 @@ const Checkout = () => {
     };
 
     axios
-      .post("http://localhost:8080/orders", order)
+      .post("https://intense-basin-48901.herokuapp.com/orders", order)
       .then((res) => {
         if (res.status === 200) {
           dispatch(emptyCart());
@@ -198,7 +199,20 @@ const Checkout = () => {
                     <div className="row">
                       <div className="col-lg-4 mx-auto">
                         <div>
-                          <p className="m-0">bKash: 0131266461 (Personal)</p>
+                          <p className="m-0">bKash: 01715343037 (Personal)</p>
+                          <div className="m-0 card p-2 shaodw-sm">
+                            <li>
+                              <b>Please complete your bKash payment at first</b>
+                            </li>
+                            <li>then fill-up the form below.</li>
+                            <li>
+                              Also, <b>note that 1.85%</b>
+                            </li>
+                            <p className="m-0">
+                              bKash "SEND MONEY" cost will be added with
+                              Calculation of Dollar to BDT $1=86 tk (Send Money)
+                            </p>
+                          </div>
                           <span>
                             Send Money: $
                             {subtotal ? subtotal : products.totalAmount}
@@ -207,7 +221,8 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-4">
                         <div>
-                          <p className="m-0">Nagad: 0131266461 (Personal)</p>
+                          <p className="m-0">Nagad: 01715343037 (Personal)</p>
+
                           <span>
                             Send Money: $
                             {subtotal ? subtotal : products.totalAmount}
@@ -216,7 +231,22 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-4">
                         <div>
-                          <p className="m-0">BTC: 0131266461</p>
+                          <div className="card">
+                            <p className="m-0">
+                              Only BTC Address:
+                              <input
+                                type="text"
+                                className="form-control"
+                                readOnly
+                                disabled
+                                defaultValue="38swY8TrjdrWE7xg5YDC453oQL1BVwMVHz"
+                              />
+                              <div
+                                className="qr-code"
+                                style={{ backgroundImage: `url(${BTC})` }}
+                              ></div>
+                            </p>
+                          </div>
                           <span>
                             Send: ${subtotal ? subtotal : products.totalAmount}{" "}
                           </span>
