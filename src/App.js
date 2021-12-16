@@ -29,6 +29,8 @@ import {
   AllProduct,
 } from "./Admin";
 import AllDiscounts from "./Admin/AllDiscounts/AllDiscounts";
+import Checkout from "./Components/Pages/Checkout/Checkout";
+import Thanks from "./Components/Pages/Checkout/Thanks/Thanks";
 function App() {
   const { user } = useAuth();
   return (
@@ -37,6 +39,22 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/category/:slug" element={<Home />} />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/thanks"
+          element={
+            <PrivateRoute>
+              <Thanks />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/register"
           element={user.email ? <Navigate replace to="/" /> : <Register />}

@@ -4,24 +4,13 @@ import Items from "./Item";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 const CartModal = ({ isOpen, products }) => {
   const { open, setOpen } = isOpen || true;
   const [close, setClose] = useState(false);
   const data = useSelector((state) => state.cartReducer);
-  const [discountCode, setDicountCode] = useState("");
   const [isClicked, setIsClicked] = useState(false);
-  const validDicountCode = async (code) => {
-    try {
-      const discount = await axios.get(
-        `https://intense-basin-48901.herokuapp.com/discount/${code}`
-      );
-    } catch (error) {}
-  };
-  const handleDiscount = (e) => {
-    e.prevetDefault();
-    if (!discountCode) return;
-    validDicountCode(discountCode);
-  };
+  const navigate = useNavigate();
   return (
     <div
       className={`cart-modal shadow-lg border-0 card animate__fadeIn ${
@@ -198,52 +187,16 @@ const CartModal = ({ isOpen, products }) => {
         <footer>
           <span style={{ color: "#333" }}>Subtotal: {data?.totalAmount} $</span>
         </footer>
-        {isClicked && (
-          <div className="discount">
-            <form onSubmit={handleDiscount}>
-              <div className="row">
-                <div className="col-lg-7 mb-1">
-                  <input
-                    type="text"
-                    onInput={(e) => setDicountCode(e.target.value)}
-                    className="form-control"
-                    placeholder="spacial code.."
-                    required
-                  />
-                </div>
-                <div className="col-lg-5">
-                  <Button variant="contained" sx={{ mb: 1 }} size="small">
-                    Apply
-                  </Button>
-                  <Button
-                    variant="contained"
-                    onClick={() => setIsClicked(!isClicked)}
-                    sx={{ mb: 1 }}
-                    size="small"
-                  >
-                    X
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </div>
-        )}
-        {!isClicked && (
-          <Button
-            variant="contained"
-            onClick={() => setIsClicked(!isClicked)}
-            fullWidth
-            disabled={!products.length > 0}
-            sx={{ mb: 1 }}
-          >
-            Discount code?
-          </Button>
-        )}
         <Button
           disabled={!products.length > 0}
           variant="contained"
           color="success"
           fullWidth
+          onClick={() => {
+            setOpen(false);
+            setClose(true);
+            navigate("/checkout");
+          }}
         >
           Checkout
         </Button>

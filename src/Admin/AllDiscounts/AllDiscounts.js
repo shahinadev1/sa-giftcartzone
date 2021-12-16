@@ -57,7 +57,7 @@ const AllDiscounts = () => {
         console.log(err);
       });
   }, []);
-  if (discounts.length > 0) return <LoadingTop />;
+  if (!discounts.length > 0) return <LoadingTop />;
   return (
     <>
       <div className="table-responsive-sm mb-10">

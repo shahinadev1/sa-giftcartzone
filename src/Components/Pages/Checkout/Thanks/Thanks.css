@@ -1,0 +1,16 @@
+/* // Small devices (landscape phones, 576px and up) */
+.thanks.card.mx-auto {
+  width: 50% !important;
+}
+
+@media (max-width: 576px) {
+  .thanks.card.mx-auto {
+    width: 100% !important;
+  }
+}
+/* // Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .thanks.card.mx-auto {
+    width: 50%;
+  }
+}

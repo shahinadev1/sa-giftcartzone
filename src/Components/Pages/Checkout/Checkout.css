@@ -1,0 +1,16 @@
+.payment-info-form {
+  text-align: left !important;
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .checkout {
+    margin: 60px auto !important;
+  }
+}
+/* // Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .checkout {
+    margin-top: 60px;
+  }
+}
