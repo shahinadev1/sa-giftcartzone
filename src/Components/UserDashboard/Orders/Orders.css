@@ -1,0 +1,9 @@
+.not-order {
+  height: 280px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  display: grid;
+  place-content: center;
+  margin-bottom: 70px;
+}

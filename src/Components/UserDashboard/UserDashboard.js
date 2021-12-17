@@ -9,7 +9,7 @@ const UserDashboard = () => {
         <div className="col-lg-3">
           <Sidebar />
         </div>
-        <div className="col-lg-9 mt-2">
+        <div className="col-lg-9  mt-2" style={{ backgroundColor: "#ffff" }}>
           <Outlet />
         </div>
       </div>

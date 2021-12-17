@@ -43,8 +43,6 @@ const Checkout = () => {
                 setMessage("code applied successfully..");
               } else {
                 setMessage("code already applied.");
-                setDiscountCode("");
-                setDiscountCode("");
               }
             } else if (valid.amount.type === "percentage") {
               if (!subtotal) {
@@ -52,16 +50,12 @@ const Checkout = () => {
                   (products.totalAmount * parseInt(valid.amount.amount)) / 100
                 );
                 setMessage("code applied successfully..");
-                setDiscountCode("");
               } else {
                 setMessage("code already applied.");
-                setDiscountCode("");
               }
             }
-            setDiscountCode("");
           }
         } else {
-          setDiscountCode("");
         }
       }
     } catch (error) {
@@ -74,8 +68,10 @@ const Checkout = () => {
     setLoading(true);
     const order = {
       ...data,
+      subtotal: subtotal | products.totalAmount,
       name: user.displayName,
       email: user.email,
+      discount: { code: discountCode | "" },
       order_date: new Date().toLocaleDateString(),
       order_products: products.items,
       status: "pending",
@@ -97,7 +93,7 @@ const Checkout = () => {
         setLoading(false);
       });
   };
-
+  console.log(products);
   const {
     handleSubmit,
     register,

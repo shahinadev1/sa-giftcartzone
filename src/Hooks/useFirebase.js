@@ -102,6 +102,23 @@ function useFirebase() {
       });
   };
 
+  const updateUser2 = (name) => {
+    setIsLoading(true);
+    updateProfile(auth.currentUser, {
+      displayName: name,
+    })
+      .then((res) => {
+        setMessage("profile updated successfully...");
+        setIsError(false);
+      })
+      .catch((err) => {
+        setIsError(true);
+        setMessage("something is wrong..");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
   //reset password
   const resetPassword = (email) => {
     setIsLoading(true);
@@ -192,13 +209,18 @@ function useFirebase() {
 
   //load admin
   const fetchAdmin = (user) => {
+    console.log("hiting...");
     setIsAdminLoading(true);
     axios
       .get(`https://intense-basin-48901.herokuapp.com/users/${user.email}`)
       .then((res) => {
         if (res.status === 200) {
-          dispatch(updateAdmin(res.data.result[0]));
-          setIsAdmin(res.data.result[0].isAdmin);
+          if (res.data.result) {
+            dispatch(updateAdmin(res.data.result));
+            setIsAdmin(res.data.result.isAdmin);
+          }
+        } else {
+          console.log(res);
         }
       })
       .catch((err) => {
@@ -211,7 +233,7 @@ function useFirebase() {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
         const { displayName, emailVerified, email, photoURL } = user;
@@ -226,11 +248,11 @@ function useFirebase() {
         setMessage("");
       } else {
         setUser({});
+        setMessage("");
       }
       setIsLoading(false);
       setMessage("");
     });
-    return () => unsubscribe;
   }, []);
 
   return {
@@ -242,6 +264,7 @@ function useFirebase() {
     isLoading,
     LogOut,
     loginWithEmailAndPassword,
+    updateUser2,
     isError,
     message,
     resetPassword,

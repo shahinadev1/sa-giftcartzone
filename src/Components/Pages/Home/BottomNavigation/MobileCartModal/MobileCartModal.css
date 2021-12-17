@@ -3,6 +3,9 @@
   background-color: #fff;
   width: 100vw;
   height: 90vh;
+  position: fixed;
+  left: 0;
+  right: 0;
   transform: translateY(800px);
   transition: transform 150ms ease-in-out;
 }

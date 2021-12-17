@@ -1,14 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import UpdateIcon from "@mui/icons-material/Update";
 import "../AddCategory/AllCategory/AllCategory.css";
 import LoadingTop from "../../Components/common/Loading/LoadingTop";
 const AllDiscounts = () => {
   const [discounts, setDiscounts] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
-  const [id, setId] = useState("");
 
   const handleDelete = (id) => {
     if (window.confirm("are you sure. to delete??")) {
@@ -16,6 +14,8 @@ const AllDiscounts = () => {
       axios
         .delete(url)
         .then((res) => {
+          const resetDiscount = discounts.filter((dis) => dis._id !== id);
+          setDiscounts(resetDiscount);
           alert("deleted successfully..");
           setUpdate(true);
         })
@@ -25,39 +25,44 @@ const AllDiscounts = () => {
     }
   };
 
-  useEffect(() => {
-    axios
-      .get("https://intense-basin-48901.herokuapp.com/discounts")
-      .then((res) => {
-        setDiscounts(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [isUpdate]);
+  // useEffect(() => {
+  //   axios
+  //     .get("https://intense-basin-48901.herokuapp.com/discounts")
+  //     .then((res) => {
+  //       setDiscounts(res.data.result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [isUpdate]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("https://intense-basin-48901.herokuapp.com/discounts")
+  //     .then((res) => {
+  //       setDiscounts(res.data.result);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [isUpdate, toggle]);
 
   useEffect(() => {
     axios
       .get("https://intense-basin-48901.herokuapp.com/discounts")
       .then((res) => {
-        setDiscounts(res.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [isUpdate, toggle]);
-
-  useEffect(() => {
-    axios
-      .get("https://intense-basin-48901.herokuapp.com/discounts")
-      .then((res) => {
-        setDiscounts(res.data.result);
+        if (res.data.result.length > 0) {
+          setDiscounts(res.data.result);
+        } else {
+          setDiscounts([]);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  if (!discounts.length > 0) return <LoadingTop />;
+
+  if (!discounts.length < 1) return <LoadingTop />;
   return (
     <>
       <div className="table-responsive-sm mb-10">

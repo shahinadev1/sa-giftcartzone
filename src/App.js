@@ -31,6 +31,7 @@ import {
 import AllDiscounts from "./Admin/AllDiscounts/AllDiscounts";
 import Checkout from "./Components/Pages/Checkout/Checkout";
 import Thanks from "./Components/Pages/Checkout/Thanks/Thanks";
+import Order from "./Components/UserDashboard/Orders/Manage/Order/Order";
 function App() {
   const { user } = useAuth();
 
@@ -87,9 +88,10 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="profile" element={<Profile />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="change-password" element={<ChangePassword />} />
+          <Route path="orders/manage" element={<Order />} />
         </Route>
         <Route path="/search/:term" element={<SearchPage />} />
         <Route path="/password-reset" element={<PasswordReset />} />

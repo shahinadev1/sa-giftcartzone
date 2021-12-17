@@ -18,12 +18,15 @@ function AdminRoute({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAdmin, isAdminLoading, isLoading } = useAuth();
-  console.log(state1);
-  if (isLoading || isAdminLoading) return <TopBarProgress />;
+  if (state1.isAdmin.length === undefined) {
+    if (isAdmin) return children;
+  }
+  if (isLoading | isAdminLoading) return <TopBarProgress />;
   if (!user?.email) {
     navigate("/login", { state: location.pathname || "/" });
+  } else {
+    if (!isAdmin) navigate("/");
   }
-  if (!isAdmin) navigate("/");
   return children;
 }
 

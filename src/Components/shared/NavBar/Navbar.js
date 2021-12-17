@@ -228,7 +228,6 @@ export default function Navbar(props) {
                 >
                   <MenuItem
                     onClick={() => {
-                      navigate("/user/profile");
                       handleClose();
                     }}
                     sx={{ alignItems: "center" }}
