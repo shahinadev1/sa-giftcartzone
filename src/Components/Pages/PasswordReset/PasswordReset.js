@@ -13,14 +13,15 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useForm } from "react-hook-form";
-
+import useAuth from "../../../Hooks/useAuth";
 function Copyright(props) {
   return (
     <Typography
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}>
+      {...props}
+    >
       {"Copyright © "}
       <Link color="inherit" to="/">
         {window.location.hostname}
@@ -38,9 +39,10 @@ export default function PasswordReset() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const { resetPassword, isLoading } = useAuth();
   const formSubmit = (data) => {
-    alert(JSON.stringify(data));
+    if (!data.email) return;
+    resetPassword(data.email);
   };
 
   return (
@@ -53,7 +55,8 @@ export default function PasswordReset() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -65,7 +68,8 @@ export default function PasswordReset() {
             onSubmit={handleSubmit(formSubmit)}
             noValidate
             autoComplete="off"
-            sx={{ mt: 1 }}>
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -85,10 +89,12 @@ export default function PasswordReset() {
               <p className="text-danger">This filed is required.</p>
             )}
             <Button
+              disabled={isLoading}
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}>
+              sx={{ mt: 3, mb: 2 }}
+            >
               Send an email
             </Button>
             <Grid container>

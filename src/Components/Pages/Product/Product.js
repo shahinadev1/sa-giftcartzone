@@ -45,6 +45,11 @@ const Product = () => {
         setLoading(false);
       });
   }, [slug]);
+  const setMarkup = () => {
+    return {
+      __html: product.description,
+    };
+  };
   if (isLoading) return <LoadingTop />;
   if (!product) navigate("/");
 
@@ -86,7 +91,10 @@ const Product = () => {
                           </del>{" "}
                           {product?.price}$
                         </h6>
-                        <p className="card-text">{product?.description}</p>
+                        <div
+                          className="card-text"
+                          dangerouslySetInnerHTML={setMarkup()}
+                        ></div>
                         <p className="card-text">
                           <small className="text-muted text-primary">
                             <span className="text-danger">Weight:</span>
@@ -162,7 +170,9 @@ const Product = () => {
                 <Tab label="Description" value="1" />
               </TabList>
             </Box>
-            <TabPanel value="1">{product?.description}</TabPanel>
+            <TabPanel value="1">
+              <div dangerouslySetInnerHTML={setMarkup()}></div>
+            </TabPanel>
           </TabContext>
         </Container>
       )}

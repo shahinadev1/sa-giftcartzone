@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import JoditEditor from "jodit-react";
+
 import {
   TextField,
   FormControl,
@@ -29,7 +31,8 @@ const AddProduct = () => {
   const [price, setPrice] = useState("");
   const [regularPrice, setRegularPrice] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [description, setDescription] = useState("");
+
+  // const [description, setDescription] = useState("");
   const [deliveryTime, setDeliveryTime] = useState("");
   const handleChange = (e) => {
     if (!e.target.files[0]) {
@@ -45,7 +48,12 @@ const AddProduct = () => {
     };
     render.readAsDataURL(e.target.files[0]);
   };
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
 
+  const config = {
+    readonly: false,
+  };
   const handleUpdate = (img, data, e) => {
     setIsLoading(true);
     const storage = getStorage();
@@ -120,19 +128,21 @@ const AddProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!content) return;
+    const regex = /\s/g;
+    const replace = "-";
     const data = {
       name,
       price,
       regularPrice,
-      description,
-      categoryId,
+      description: content,
+      categoryId: categoryId | "",
       deliveryTime,
       productQty,
-      slug: name.toLowerCase().replace(" ", "-"),
+      slug: name.toLowerCase().replace(regex, replace),
       added_date: new Date().toLocaleDateString(),
     };
-    console.log(data);
-    if (!categoryId | !img) {
+    if (!img) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -225,7 +235,7 @@ const AddProduct = () => {
         </div>
         <div className="row mb-3">
           <div className="col-12">
-            <TextField
+            {/* <TextField
               id="standard-multiline-static"
               label="Product Description"
               multiline
@@ -234,6 +244,14 @@ const AddProduct = () => {
               required
               fullWidth
               variant="standard"
+            /> */}
+
+            <JoditEditor
+              ref={editor}
+              value={content}
+              config={config}
+              tabIndex={1} // tabIndex of textarea
+              onChange={(newContent) => setContent(newContent)}
             />
           </div>
         </div>
@@ -267,7 +285,6 @@ const AddProduct = () => {
             id="demo-simple-select"
             label="Select category"
             onChange={(e) => setCategoryId(e.target.value)}
-            required
           >
             {subCategories.map((sub) => (
               <MenuItem value={sub._id}>{sub.name}</MenuItem>

@@ -4,13 +4,15 @@ import Items from "./Item";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 const CartModal = ({ isOpen, products }) => {
   const { open, setOpen } = isOpen || true;
   const [close, setClose] = useState(false);
   const data = useSelector((state) => state.cartReducer);
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
   return (
     <div
       className={`cart-modal shadow-lg border-0 card animate__fadeIn ${
@@ -195,7 +197,9 @@ const CartModal = ({ isOpen, products }) => {
           onClick={() => {
             setOpen(false);
             setClose(true);
-            navigate("/checkout");
+            user?.email
+              ? navigate("/checkout")
+              : navigate("/login", { state: "/checkout" });
           }}
         >
           Checkout

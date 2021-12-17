@@ -16,9 +16,11 @@ const AllCategory = () => {
   const modalRef = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
+    const regex = /\s/g;
+    const replace = "-";
     const data = {
       name: name,
-      slug: name.toLowerCase().replace(" ", "-"),
+      slug: name.toLowerCase().replace(regex, replace),
       added_date: new Date().toLocaleDateString(),
     };
     let url = `https://intense-basin-48901.herokuapp.com/parent-category`;

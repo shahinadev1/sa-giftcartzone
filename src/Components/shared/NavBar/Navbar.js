@@ -110,7 +110,7 @@ export default function Navbar(props) {
                 component="div"
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
-                SA GiftCards
+                US Virtual Shop
               </Typography>
             </NavLink>
             <Search className="hide-in-mobile">
@@ -120,6 +120,7 @@ export default function Navbar(props) {
               <StyledInputBase
                 ref={searchRef}
                 placeholder="Search…"
+                onInput={(e) => navigate(`/search/${e.target.value}`)}
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
@@ -131,6 +132,7 @@ export default function Navbar(props) {
                 <StyledInputBase
                   autoFocus={true}
                   ref={searchRef}
+                  onInput={(e) => navigate(`/search/${e.target.value}`)}
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
                 />

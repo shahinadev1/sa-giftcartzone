@@ -10,6 +10,7 @@ import { emptyCart } from "../../../redux/reducer/cartReducer";
 import axios from "axios";
 import BTC from "./btc.png";
 import useAuth from "../../../Hooks/useAuth";
+import { toast } from "react-toastify";
 const Checkout = () => {
   const { user } = useAuth();
   const products = useSelector((state) => state.cartReducer);
@@ -26,13 +27,30 @@ const Checkout = () => {
         "https://intense-basin-48901.herokuapp.com/discounts"
       );
       if (!data.result.length) {
+        toast.error("code is not valid!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         return;
       } else {
         const valid = data.result.find((code) => code.name === discountCode);
         if (valid) {
           setIsValid(true);
           if (valid.quantity <= 1) {
-            setMessage("code is expired!");
+            toast.error("code is expired!", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
             setDiscountCode("");
           } else {
             if (valid.amount.type === "amount") {
@@ -40,18 +58,50 @@ const Checkout = () => {
                 setSubtotal(
                   products.totalAmount - parseInt(valid.amount.amount)
                 );
-                setMessage("code applied successfully..");
+                toast.success("code applied successfully..", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
               } else {
-                setMessage("code already applied.");
+                toast.error("code already applied.", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
               }
             } else if (valid.amount.type === "percentage") {
               if (!subtotal) {
                 setSubtotal(
                   (products.totalAmount * parseInt(valid.amount.amount)) / 100
                 );
-                setMessage("code applied successfully..");
+                toast.message("code applied successfully..", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
               } else {
-                setMessage("code already applied.");
+                toast.error("code already applied.", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
               }
             }
           }
@@ -86,14 +136,20 @@ const Checkout = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
-        alert("something is wrong..");
+        toast.error("Select payment method!", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       })
       .finally(() => {
         setLoading(false);
       });
   };
-  console.log(products);
   const {
     handleSubmit,
     register,
@@ -182,10 +238,9 @@ const Checkout = () => {
                       {...register("paymentMethod", { required: true })}
                       id="payment"
                     >
-                      <option disabled selected>
-                        Select payment method
+                      <option selected value="bkash">
+                        bKash
                       </option>
-                      <option value="bkash">bKash</option>
                       <option value="nagad">Nagad</option>
                       <option value="btc">BTC</option>
                     </select>
@@ -197,13 +252,13 @@ const Checkout = () => {
                         <div>
                           <p className="m-0">bKash: 01715343037 (Personal)</p>
                           <div className="m-0 card p-2 shaodw-sm">
-                            <li>
+                            <p className="m-0">
                               <b>Please complete your bKash payment at first</b>
-                            </li>
-                            <li>then fill-up the form below.</li>
-                            <li>
+                            </p>
+                            <p className="m-0">then fill-up the form below.</p>
+                            <p className="m-0">
                               Also, <b>note that 1.85%</b>
-                            </li>
+                            </p>
                             <p className="m-0">
                               bKash "SEND MONEY" cost will be added with
                               Calculation of Dollar to BDT $1=86 tk (Send Money)
@@ -218,7 +273,19 @@ const Checkout = () => {
                       <div className="col-lg-4">
                         <div>
                           <p className="m-0">Nagad: 01715343037 (Personal)</p>
-
+                          <div className="m-0 card p-2 shaodw-sm">
+                            <p className="m-0">
+                              <b>Please complete your bKash payment at first</b>
+                            </p>
+                            <p className="m-0">then fill-up the form below.</p>
+                            <p className="m-0">
+                              Also, <b>note that 1.85%</b>
+                            </p>
+                            <p className="m-0">
+                              bKash "SEND MONEY" cost will be added with
+                              Calculation of Dollar to BDT $1=86 tk (Send Money)
+                            </p>
+                          </div>
                           <span>
                             Send Money: $
                             {subtotal ? subtotal : products.totalAmount}
@@ -323,17 +390,7 @@ const Checkout = () => {
                     placeholder="enter promo code"
                     className="form-control"
                     onChange={(e) => setDiscountCode(e.target.value)}
-                  />
-                  <span className="d-block text-success">
-                    {isValid && "Code found!"}
-                  </span>
-                  <span className="d-block text-danger">
-                    {!isValid | (!message === "code is expired!")
-                      ? "Code not found!"
-                      : ""}
-                  </span>
-
-                  {message && <p className="m-0">{message}</p>}
+                  />{" "}
                   <Button
                     size="small"
                     variant="contained"

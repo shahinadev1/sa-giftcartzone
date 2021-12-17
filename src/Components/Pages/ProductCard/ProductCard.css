@@ -5,6 +5,11 @@
 .product-card {
   border-radius: 20px !important;
   position: relative;
+  height: 390px !important;
+  overflow: hidden;
+}
+.product-card .card-img-top .card-img {
+  overflow: hidden;
 }
 .currency {
   color: rgba(0, 0, 0, 0.6);

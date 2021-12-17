@@ -8,7 +8,7 @@ import Loading from "../../../common/Loading/Loading";
 const ContentWrapper = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  const { slug } = useParams();
+  const { slug, q } = useParams();
   useEffect(() => {
     if (!slug) {
       axios
@@ -48,6 +48,31 @@ const ContentWrapper = () => {
     }
   }, [slug]);
 
+  function replaceText(element) {
+    let regx = new RegExp(q, "gi");
+    if (element.hasChildNodes()) {
+      element.childNodes.forEach(replaceText);
+    } else if (element.nodeType === Text.TEXT_NODE) {
+      if (element.textContent.match(regx)) {
+        element.parentElement.classList.remove("text-muted");
+        element.parentElement.style.color = "orange";
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (!q) return;
+    axios
+      .get(`https://intense-basin-48901.herokuapp.com/search/${q}`)
+      .then((res) => {
+        setProducts(res.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    replaceText(document.getElementById("wrapper"), q);
+  }, [q]);
+
   useEffect(() => {
     axios
       .get("https://intense-basin-48901.herokuapp.com/products")
@@ -64,7 +89,10 @@ const ContentWrapper = () => {
         <div className="row">
           <div className="col-lg-8">
             <div className="container p-0">
-              <div className="row row-cols-1 row-cols-lg-3 g-lg-4 g-2">
+              <div
+                className="row row-cols-1 row-cols-lg-3 g-lg-4 g-2"
+                id="wrapper"
+              >
                 {!products.length > 0 ? (
                   <>
                     <Loading />

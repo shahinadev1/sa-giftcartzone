@@ -3,9 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import "react-toastify/dist/ReactToastify.css";
 import AuthProvider from "./Context/AuthProvider";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "draft-js/dist/Draft.css";
+
 import store from "./redux/store";
 ReactDOM.render(
   <BrowserRouter>

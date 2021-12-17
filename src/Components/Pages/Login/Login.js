@@ -17,13 +17,15 @@ import { useForm } from "react-hook-form";
 import { useLocation, Navigate } from "react-router-dom";
 
 import useAuth from "../../../Hooks/useAuth";
+import { toast, ToastContainer } from "react-toastify";
 function Copyright(props) {
   return (
     <Typography
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}>
+      {...props}
+    >
       {"Copyright © "}
       <Link color="inherit" to="/">
         {window.location.hostname}
@@ -36,9 +38,10 @@ function Copyright(props) {
 
 const theme = createTheme();
 export default function Login() {
-  const { user, isLoading, loginWithEmailAndPassword, googleSignIn } =
+  const { user, isLoading, loginWithEmailAndPassword, message, googleSignIn } =
     useAuth();
   const location = useLocation();
+
   const url = location.state || "/";
   const {
     register,
@@ -59,7 +62,8 @@ export default function Login() {
       <Container
         component="main"
         maxWidth="xs"
-        sx={{ backgroundColor: "#fff" }}>
+        sx={{ backgroundColor: "#fff" }}
+      >
         <CssBaseline />
         <Box
           sx={{
@@ -67,7 +71,8 @@ export default function Login() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}>
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -79,7 +84,8 @@ export default function Login() {
             onSubmit={handleSubmit(formSubmit)}
             noValidate
             autoComplete="off"
-            sx={{ mt: 1 }}>
+            sx={{ mt: 1 }}
+          >
             <TextField
               margin="normal"
               required
@@ -121,14 +127,16 @@ export default function Login() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              disabled={isLoading}>
+              disabled={isLoading}
+            >
               Sign In
             </Button>
             <Button
               onClick={() => googleSignIn(url)}
               variant="contained"
               className="mx-auto mb-3 d-block"
-              disabled={isLoading}>
+              disabled={isLoading}
+            >
               Continue with
               <span>
                 <GoogleIcon style={{ fontSize: "18px", marginLeft: "10px" }} />

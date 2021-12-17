@@ -3,49 +3,42 @@ import React, { useEffect, useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import "../AddCategory/AllCategory/AllCategory.css";
 import LoadingTop from "../../Components/common/Loading/LoadingTop";
+import Swal from "sweetalert2";
 const AllDiscounts = () => {
   const [discounts, setDiscounts] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [isUpdate, setUpdate] = useState(false);
 
   const handleDelete = (id) => {
-    if (window.confirm("are you sure. to delete??")) {
-      let url = `https://intense-basin-48901.herokuapp.com/discounts/${id}`;
-      axios
-        .delete(url)
-        .then((res) => {
-          const resetDiscount = discounts.filter((dis) => dis._id !== id);
-          setDiscounts(resetDiscount);
-          alert("deleted successfully..");
-          setUpdate(true);
-        })
-        .catch((err) => {
-          alert("something is wrong...");
-        });
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let url = `https://intense-basin-48901.herokuapp.com/discounts/${id}`;
+        axios
+          .delete(url)
+          .then((res) => {
+            const resetDiscount = discounts.filter((dis) => dis._id !== id);
+            setDiscounts(resetDiscount);
+            Swal.fire("Deleted!", "discount has been deleted.", "success");
+          })
+          .catch((err) => {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+              footer: '<a href="">Why do I have this issue?</a>',
+            });
+          });
+      }
+    });
   };
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://intense-basin-48901.herokuapp.com/discounts")
-  //     .then((res) => {
-  //       setDiscounts(res.data.result);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [isUpdate]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://intense-basin-48901.herokuapp.com/discounts")
-  //     .then((res) => {
-  //       setDiscounts(res.data.result);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [isUpdate, toggle]);
 
   useEffect(() => {
     axios
@@ -62,7 +55,7 @@ const AllDiscounts = () => {
       });
   }, []);
 
-  if (!discounts.length < 1) return <LoadingTop />;
+  if (!discounts) return <LoadingTop />;
   return (
     <>
       <div className="table-responsive-sm mb-10">

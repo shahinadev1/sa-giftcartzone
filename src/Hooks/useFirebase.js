@@ -17,8 +17,31 @@ import {
 } from "firebase/auth";
 import axios from "axios";
 import { updateAdmin, updateUser } from "../redux/reducer/firebaseReducer";
+import { toast } from "react-toastify";
 FirebaseAPP();
 function useFirebase() {
+  const showTost = (message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const errorTost = (message) => {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
   const dispatch = useDispatch();
   //redux
   const navigate = useNavigate();
@@ -39,7 +62,7 @@ function useFirebase() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((UserCredential) => {
         setIsError(false);
-        console.log("account created: ", UserCredential);
+        showTost("Account create successfully...");
         updateProfile(auth.currentUser, {
           displayName: fullName,
           photoURL: "/mediaimgs/profile.png",
@@ -47,39 +70,26 @@ function useFirebase() {
           .then(() => {
             saveUser({ name: fullName, email });
             setIsError(false);
+            showTost("Account create successfully...");
             sendEmailVerification(auth.currentUser)
               .then(() => {
                 setIsError(false);
+                showTost("Please verify your email!");
                 navigate(route);
               })
               .catch((err) => {
                 setIsError(true);
-                setMessage("");
-                Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
-                  text: "Something went wrong!",
-                });
+                errorTost(err.message);
               });
           })
           .catch((err) => {
             setIsError(true);
-            setMessage("");
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Something went wrong!",
-            });
+            errorTost(err.message);
           });
       })
       .catch((err) => {
         setIsError(true);
-        setMessage("");
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+        errorTost(err.message);
       })
       .finally(() => setIsLoading(false));
   };
@@ -89,13 +99,12 @@ function useFirebase() {
     signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
         setIsError(false);
-        setMessage("login successfully..");
+        showTost("login successfully..");
         navigate(route);
       })
       .catch((err) => {
         setIsError(true);
         console.log(err);
-        setMessage("");
       })
       .finally(() => {
         setIsLoading(false);
@@ -108,12 +117,12 @@ function useFirebase() {
       displayName: name,
     })
       .then((res) => {
-        setMessage("profile updated successfully...");
+        showTost("profile updated successfully...");
         setIsError(false);
       })
       .catch((err) => {
         setIsError(true);
-        setMessage("something is wrong..");
+        errorTost(err.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -126,11 +135,12 @@ function useFirebase() {
       .then(() => {
         // Password reset email sent!
         // ..
-        setMessage("password reset link was send to your email..");
+        showTost("password reset link was send to your email..");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        errorTost(errorMessage);
         // ..
       })
       .finally(() => setIsLoading(false));
@@ -142,24 +152,12 @@ function useFirebase() {
       .then((res) => {
         saveUser({ name: user.displayName, email: user.email });
         setIsError(false);
-        setMessage("Account created successfully..");
-        Swal.fire({
-          icon: "success",
-          title: "Account created successfully..",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        showTost("Login successfully. with google.");
         navigate(route || "/");
       })
       .catch((err) => {
         setIsError(true);
-        console.log(err);
-        setMessage("");
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+        errorTost(err.message);
       })
       .finally(() => {
         setIsLoading(false);
@@ -191,16 +189,11 @@ function useFirebase() {
     signOut(auth)
       .then((res) => {
         setIsError(false);
-        setMessage("Logout successfully.");
+        showTost("Logout successfully.");
       })
       .catch((err) => {
         setIsError(true);
-        setMessage("");
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+        errorTost("something is wrong..");
       })
       .finally(() => {
         setIsLoading(false);
@@ -209,7 +202,6 @@ function useFirebase() {
 
   //load admin
   const fetchAdmin = (user) => {
-    console.log("hiting...");
     setIsAdminLoading(true);
     axios
       .get(`https://intense-basin-48901.herokuapp.com/users/${user.email}`)
@@ -233,8 +225,9 @@ function useFirebase() {
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        fetchAdmin(user);
         setUser(user);
         const { displayName, emailVerified, email, photoURL } = user;
         const data = {
@@ -244,15 +237,12 @@ function useFirebase() {
           photoURL,
         };
         dispatch(updateUser(data));
-        fetchAdmin(user);
-        setMessage("");
       } else {
         setUser({});
-        setMessage("");
       }
       setIsLoading(false);
-      setMessage("");
     });
+    return () => unsubscribe;
   }, []);
 
   return {

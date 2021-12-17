@@ -1,5 +1,11 @@
 import Home from "./Components/Pages/Home/Home";
-import { Routes, Route, Navigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Register from "./Components/Pages/Register/Register";
 import PageNotFound from "./Components/Pages/NotFound/PageNotFound";
 import Navbar from "./Components/shared/NavBar/Navbar";
@@ -33,9 +39,11 @@ import AllDiscounts from "./Admin/AllDiscounts/AllDiscounts";
 import Checkout from "./Components/Pages/Checkout/Checkout";
 import Thanks from "./Components/Pages/Checkout/Thanks/Thanks";
 import Order from "./Components/UserDashboard/Orders/Manage/Order/Order";
+import { ToastContainer } from "react-toastify";
 function App() {
   const { user } = useAuth();
-
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <>
       <Navbar />
@@ -44,7 +52,11 @@ function App() {
         <Route path="/category/:slug" element={<Home />} />
         <Route
           path="/checkout"
-          element={user.email ? <Checkout /> : <Navigate replace to="/login" />}
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
         />
         <Route
           path="/thanks"
@@ -95,7 +107,7 @@ function App() {
           <Route path="change-password" element={<ChangePassword />} />
           <Route path="orders/manage" element={<Order />} />
         </Route>
-        <Route path="/search/:term" element={<SearchPage />} />
+        <Route path="/search/:q" element={<Home />} />
         <Route path="/password-reset" element={<PasswordReset />} />
         <Route path="/product" element={<Product />}>
           <Route path=":slug" element={<Product />} />
@@ -104,6 +116,19 @@ function App() {
       </Routes>
       <Cart />
       <MobileMenu />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {/* Same as */}
+      <ToastContainer />
     </>
   );
 }

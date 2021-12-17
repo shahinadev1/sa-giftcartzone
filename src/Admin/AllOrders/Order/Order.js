@@ -4,17 +4,29 @@ import { useParams } from "react-router-dom";
 import "./Order.css";
 import LoadingTop from "../../../Components/common/Loading/LoadingTop";
 import Swal from "sweetalert2";
+import { TextField } from "@mui/material";
+import useAuth from "../../../Hooks/useAuth";
 const OrderView = () => {
   const [order, setOrder] = useState({});
   const [status, setStatus] = useState("");
+  const [subject, setSubject] = useState("");
+  const [orderInfo, setOrderInfo] = useState("");
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const { user } = useAuth();
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (!status) return;
+    if (!status && !orderInfo) return;
+
     setLoading(true);
     axios
-      .put(`https://intense-basin-48901.herokuapp.com/orders/${id}`, { status })
+      .put(`http://localhost:8080/orders/${id}`, {
+        status,
+        subject: subject,
+        body: orderInfo,
+        email: order.email,
+        admin: user.email,
+      })
       .then((res) => {
         console.log(res.data);
         if (res.status === 200) {
@@ -194,6 +206,34 @@ const OrderView = () => {
             </div>
             <div className="col-lg-10">
               <p className="m-0">{order?.order_date}</p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" style={{ marginBottom: "50px !important" }}>
+          <div className="row">
+            <div className="col-lg-2">
+              <strong>Delivery Info..</strong>
+            </div>
+
+            <div className="col-lg-10">
+              <TextField
+                label="email title subject."
+                required
+                onBlur={(e) => setSubject(e.target.value)}
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                mx={{ mt: 2 }}
+                id="standard-multiline-static"
+                label="Order Deliver Info.."
+                multiline
+                rows={4}
+                required
+                onBlur={(e) => setOrderInfo(e.target.value)}
+                fullWidth
+                variant="standard"
+              />
             </div>
           </div>
         </li>

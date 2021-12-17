@@ -10,9 +10,12 @@ const AddCategory = () => {
     e.preventDefault();
 
     setIsLoading(true);
+
+    const regex = /\s/g;
+    const replace = "-";
     const data = {
       name,
-      slug: name.toString().replace(" ", "-"),
+      slug: name.toString().replace(regex, replace),
       added_date: new Date().toLocaleDateString(),
     };
     axios

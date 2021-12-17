@@ -24,6 +24,8 @@ const AllProduct = () => {
   const closeModalRef = useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
+    const regex = /\s/g;
+    const replace = "-";
     const data = {
       name: name || defaultName,
       price: price || defaultPrice,
@@ -31,8 +33,8 @@ const AllProduct = () => {
       categoryId: category || defaultCategoryId,
       productQty: productQty || defaultQty,
       slug:
-        name.toLowerCase().replace(" ", "-") ||
-        defaultName.toLowerCase().replace(" ", "-"),
+        name.toLowerCase().replace(regex, replace) ||
+        defaultName.toLowerCase().replace(regex, replace),
       added_date: new Date().toLocaleDateString(),
     };
     let url = `https://intense-basin-48901.herokuapp.com/products/${id}`;

@@ -21,7 +21,7 @@ function AdminRoute({ children }) {
   if (state1.isAdmin.length === undefined) {
     if (isAdmin) return children;
   }
-  if (isLoading | isAdminLoading) return <TopBarProgress />;
+  if (isLoading || isAdminLoading) return <TopBarProgress />;
   if (!user?.email) {
     navigate("/login", { state: location.pathname || "/" });
   } else {
