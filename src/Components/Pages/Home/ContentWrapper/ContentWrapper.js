@@ -17,7 +17,7 @@ const ContentWrapper = () => {
           setProducts(res.data.result);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       axios
@@ -35,12 +35,12 @@ const ContentWrapper = () => {
                 setProducts(filteredProducts);
               })
               .catch((err) => {
-                console.log(err);
+                // console.log(err);
               });
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         })
         .finally(() => {
           if (products.length === 0) navigate("/");
@@ -68,7 +68,7 @@ const ContentWrapper = () => {
         setProducts(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     replaceText(document.getElementById("wrapper"), q);
   }, [q]);
@@ -80,7 +80,7 @@ const ContentWrapper = () => {
         setProducts(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   return (

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Checkout.css";
 import { useSelector, useDispatch } from "react-redux";
 import Single from "../../../Components/Cart/CartModal/Single/Single";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { useForm } from "react-hook-form";
 import { Button } from "@mui/material";
@@ -116,6 +116,7 @@ const Checkout = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
+
     const order = {
       ...data,
       subtotal: subtotal | products.totalAmount,
@@ -136,6 +137,7 @@ const Checkout = () => {
         }
       })
       .catch((err) => {
+        // console.log(err);
         toast.error("Select payment method!", {
           position: "top-right",
           autoClose: 2000,
@@ -250,7 +252,16 @@ const Checkout = () => {
                     <div className="row">
                       <div className="col-lg-4 mx-auto">
                         <div>
-                          <p className="m-0">bKash: 01715343037 (Personal)</p>
+                          <p className="m-0">
+                            bKash:
+                            <input
+                              type="number"
+                              value="01715343037"
+                              className="form-control"
+                              readOnly
+                            />
+                            (Personal)
+                          </p>
                           <div className="m-0 card p-2 shaodw-sm">
                             <p className="m-0">
                               <b>Please complete your bKash payment at first</b>
@@ -272,7 +283,16 @@ const Checkout = () => {
                       </div>
                       <div className="col-lg-4">
                         <div>
-                          <p className="m-0">Nagad: 01715343037 (Personal)</p>
+                          <p className="m-0">
+                            Nagad:
+                            <input
+                              type="number"
+                              value="01715343037"
+                              className="form-control"
+                              readOnly
+                            />
+                            (Personal)
+                          </p>
                           <div className="m-0 card p-2 shaodw-sm">
                             <p className="m-0">
                               <b>Please complete your bKash payment at first</b>
@@ -341,7 +361,9 @@ const Checkout = () => {
                             TrxID
                           </label>
                           <input
-                            {...register("TrxID", { required: true })}
+                            {...register("TrxID", {
+                              required: true,
+                            })}
                             type="text"
                             class="form-control"
                             id="trxId"
@@ -364,7 +386,7 @@ const Checkout = () => {
                       required
                     />
                     <label class="form-check-label" for="exampleCheck1">
-                      Agree with our terms policy
+                      Agree with our terms <Link to="/policy">policy</Link>
                     </label>
                   </div>
                 </div>

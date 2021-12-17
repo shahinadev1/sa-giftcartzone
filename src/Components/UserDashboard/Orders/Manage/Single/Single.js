@@ -1,6 +1,11 @@
 import React from "react";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 const Single = ({ item }) => {
+  const showTemp = () => {
+    return {
+      __html: item.description,
+    };
+  };
   return (
     <>
       <div className="card">
@@ -17,10 +22,10 @@ const Single = ({ item }) => {
               <h5 className="card-title">
                 {item?.name} X {item.quintity}
               </h5>
-              <p className="card-text">
-                {item?.description.slice(0, 150)}
-                <MoreHorizIcon />
-              </p>
+              <div
+                className="card-text"
+                dangerouslySetInnerHTML={showTemp()}
+              ></div>
               <p className="card-text m-0">
                 Price:<small className="text-muted"> {item?.price}$</small>
               </p>

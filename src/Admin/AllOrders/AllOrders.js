@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Link, useNavigate } from "react-router-dom";
-import UpdateIcon from "@mui/icons-material/Update";
+import { useNavigate } from "react-router-dom";
 import LoadingTop from "../../Components/common/Loading/LoadingTop";
 import Swal from "sweetalert2";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -56,7 +55,7 @@ const AllOrders = () => {
         setOrders(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   if (!orders.length) return <LoadingTop />;
@@ -77,38 +76,41 @@ const AllOrders = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  {order?._id.slice(-0, -6)}
-                </TableCell>
-                <TableCell align="right">{order?.name}</TableCell>
-                <TableCell align="right">${order?.subtotal}</TableCell>
-                <TableCell align="right">{order?.paymentMethod}</TableCell>
-                <TableCell align="right">{order?.status}</TableCell>
-                <TableCell align="right">{order?.order_date}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    onClick={() => navigate(`/admin/orders/${order?._id}`)}
-                    color="info"
-                    sx={{ p: 0, mb: 1 }}
-                  >
-                    <RemoveRedEyeIcon />
-                  </Button>
-
-                  <Button
-                    onClick={() => deleteOrder(order?._id)}
-                    size="small"
-                    color="error"
-                    sx={{ p: 0 }}
-                    variant="contained"
-                  >
-                    <DeleteForeverIcon />
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {orders.length === 0 ? (
+              <p className="m-0">No Order found!</p>
+            ) : (
+              orders.map((order) => (
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {order?._id.slice(-0, -6)}
+                  </TableCell>
+                  <TableCell align="right">{order?.name}</TableCell>
+                  <TableCell align="right">${order?.subtotal}</TableCell>
+                  <TableCell align="right">{order?.paymentMethod}</TableCell>
+                  <TableCell align="right">{order?.status}</TableCell>
+                  <TableCell align="right">{order?.order_date}</TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      onClick={() => navigate(`/admin/orders/${order?._id}`)}
+                      color="info"
+                      sx={{ p: 0, mb: 1 }}
+                    >
+                      <RemoveRedEyeIcon />
+                    </Button>
+                    <Button
+                      onClick={() => deleteOrder(order?._id)}
+                      size="small"
+                      color="error"
+                      sx={{ p: 0 }}
+                      variant="contained"
+                    >
+                      <DeleteForeverIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

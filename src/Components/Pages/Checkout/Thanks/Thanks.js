@@ -7,7 +7,6 @@ const Thanks = () => {
   const location = useLocation();
   document.body.style.backgroundColor = "#f9fafb";
   const navigate = useNavigate();
-  console.log(location.state);
   if (!location.state) navigate("/");
   return (
     <div className="container text-center d-grid place-content-center">

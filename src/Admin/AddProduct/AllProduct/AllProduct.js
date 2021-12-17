@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import UpdateIcon from "@mui/icons-material/Update";
 import LoadingTop from "../../../Components/common/Loading/LoadingTop";
 import Swal from "sweetalert2";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { Button } from "@mui/material";
 const AllProduct = () => {
   const [Products, setProducts] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -91,7 +93,7 @@ const AllProduct = () => {
         setProducts(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
 
     axios
@@ -136,19 +138,11 @@ const AllProduct = () => {
                   </td>
                   <td>{product?.added_date}</td>
                   <td>
-                    <button
-                      className="btn btn-danger bg-transparent mx-2"
-                      onClick={() => handleDelete(product._id)}
-                    >
-                      <DeleteForeverIcon
-                        sx={{ cursor: "pointer", color: "red" }}
-                      />
-                    </button>
-                    <button
+                    <Button
                       type="button"
-                      class="btn btn-primary bg-transparent"
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
+                      variant="contained"
                       onClick={() => {
                         setId(product._id);
                         setDefaultName(product.name);
@@ -157,9 +151,20 @@ const AllProduct = () => {
                         setProductQty(product?.productQty);
                         setDefaultCId(product.categoryId);
                       }}
+                      color="info"
+                      sx={{ p: 0, mb: 1 }}
                     >
-                      <UpdateIcon sx={{ cursor: "pointer", color: "green" }} />
-                    </button>
+                      <UpdateIcon sx={{ cursor: "pointer" }} />
+                    </Button>
+                    <Button
+                      size="small"
+                      color="error"
+                      sx={{ p: 0 }}
+                      onClick={() => handleDelete(product._id)}
+                      variant="contained"
+                    >
+                      <DeleteForeverIcon />
+                    </Button>
                   </td>
                 </tr>
               ))
@@ -284,7 +289,7 @@ const AllProduct = () => {
                 </button>
               </form>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer mb-5">
               <button
                 ref={closeModalRef}
                 type="button"

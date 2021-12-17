@@ -6,7 +6,7 @@ const Order = () => {
   const location = useLocation();
   const [products, setProducts] = useState(location.state.order.order_products);
   const navigate = useNavigate();
-  console.log(location.state.order);
+  // console.log(location.state.order);
   useEffect(() => {
     if (location.state === null) navigate("/");
   }, []);

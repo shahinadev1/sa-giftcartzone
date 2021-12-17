@@ -48,10 +48,10 @@ const SubCategory = () => {
       .get("https://intense-basin-48901.herokuapp.com/parent-category")
       .then((res) => {
         setParentCategories(res.data.result);
-        console.log(res.data.result);
+        // console.log(res.data.result);
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       })
       .finally(() => {
         setIsLoading(false);

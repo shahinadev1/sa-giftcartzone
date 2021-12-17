@@ -19,7 +19,7 @@ const MobileCategory = ({ isOpen }) => {
         setParentCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       })
       .finally(() => {
         setFetchLoading(false);
@@ -35,7 +35,7 @@ const MobileCategory = ({ isOpen }) => {
         setSubCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       })
       .finally(() => {
         setFetchLoading(false);

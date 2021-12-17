@@ -6,26 +6,23 @@ import "./Orders.css";
 import notFound from "./notFound.svg";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import useAuth from "../../../Hooks/useAuth";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const { user } = useSelector((state) => state.firebaseReducer);
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("https://intense-basin-48901.herokuapp.com/orders")
+      .get(`https://intense-basin-48901.herokuapp.com/orders/${user.email}`)
       .then((res) => {
         if (res.status === 200) {
-          if (res.data.result.length > 0) {
-            const myOrders = res.data.result.filter(
-              (order) => order.email === user.email
-            );
-            setOrders(myOrders);
-          }
+          setOrders(res.data.result);
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
+        setOrders([]);
       });
   }, []);
   if (!orders.length > 1) return <LoadingTop />;

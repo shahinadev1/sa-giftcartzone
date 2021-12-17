@@ -2,3 +2,16 @@ img.preview {
   max-height: 250px;
   width: 100%;
 }
+.rdw-editor-main {
+  min-height: 150px !important;
+  border: #eee;
+  box-shadow: 2px -1px 5px 0 #dadada;
+}
+.rdw-editor-wrapper {
+  border: #eee;
+  box-shadow: 2px -1px 5px 0 #dadada;
+}
+.rdw-editor-toolbar {
+  border: #eee;
+  box-shadow: 2px -1px 5px 0 #dadada;
+}

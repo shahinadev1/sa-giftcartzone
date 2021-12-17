@@ -17,7 +17,7 @@ export default function SideBar() {
         setParentCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       })
       .finally(() => {
         setFetchLoading(false);
@@ -33,7 +33,7 @@ export default function SideBar() {
         setSubCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err.message);
+        // console.log(err.message);
       })
       .finally(() => {
         setFetchLoading(false);

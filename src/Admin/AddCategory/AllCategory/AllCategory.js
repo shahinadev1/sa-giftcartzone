@@ -116,7 +116,7 @@ const AllCategory = () => {
         setCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => setUpdate(false));
     axios
@@ -125,7 +125,7 @@ const AllCategory = () => {
         setSubCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => setUpdate(false));
   }, [isUpdate]);
@@ -137,7 +137,7 @@ const AllCategory = () => {
         setCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => setUpdate(false));
     axios
@@ -146,7 +146,7 @@ const AllCategory = () => {
         setSubCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => setUpdate(false));
   }, [isUpdate, toggle]);
@@ -158,7 +158,7 @@ const AllCategory = () => {
         setCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     axios
       .get("https://intense-basin-48901.herokuapp.com/sub-category")
@@ -166,7 +166,7 @@ const AllCategory = () => {
         setSubCategories(res.data.result);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   return (

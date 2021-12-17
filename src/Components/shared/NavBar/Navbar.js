@@ -154,7 +154,7 @@ export default function Navbar(props) {
                 sx={{ display: { xs: "none", sm: "block" }, mr: 2 }}
               >
                 <Link
-                  to="/"
+                  to="/policy"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -172,7 +172,7 @@ export default function Navbar(props) {
                 sx={{ display: { xs: "none", sm: "block" } }}
               >
                 <Link
-                  to="/"
+                  to="/about"
                   style={{
                     textDecoration: "none",
                     color: "#fff",

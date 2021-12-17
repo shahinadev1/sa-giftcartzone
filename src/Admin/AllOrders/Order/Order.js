@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "./Order.css";
@@ -6,29 +6,36 @@ import LoadingTop from "../../../Components/common/Loading/LoadingTop";
 import Swal from "sweetalert2";
 import { TextField } from "@mui/material";
 import useAuth from "../../../Hooks/useAuth";
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 const OrderView = () => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const onEditorStateChange = (state) => {
+    setEditorState(state);
+  };
   const [order, setOrder] = useState({});
   const [status, setStatus] = useState("");
   const [subject, setSubject] = useState("");
-  const [orderInfo, setOrderInfo] = useState("");
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { user } = useAuth();
+  const [textBody, setTextBody] = useState("");
+
   const handleUpdate = (e) => {
     e.preventDefault();
-    if (!status && !orderInfo) return;
-
+    if (!status && !textBody) return;
     setLoading(true);
     axios
-      .put(`http://localhost:8080/orders/${id}`, {
+      .put(`https://intense-basin-48901.herokuapp.com/orders/${id}`, {
         status,
         subject: subject,
-        body: orderInfo,
+        body: textBody,
         email: order.email,
         admin: user.email,
       })
       .then((res) => {
-        console.log(res.data);
         if (res.status === 200) {
           Swal.fire({
             icon: "success",
@@ -50,17 +57,21 @@ const OrderView = () => {
         setLoading(false);
       });
   };
+
   useEffect(() => {
     axios
       .get(`https://intense-basin-48901.herokuapp.com/order/${id}`)
       .then((res) => {
         setOrder(res.data.result);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
+  useEffect(() => {
+    setTextBody(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+  }, [editorState]);
   if (!Object.keys(order).length > 0) return <LoadingTop />;
   return (
     <div>
@@ -181,7 +192,7 @@ const OrderView = () => {
               <strong>Payment info</strong>
             </div>
             <div className="col-lg-10">
-              <p className="m-0">
+              <p className="m-0 overflow-hidden">
                 {order?.paymentMethod} => {order?.senderNumber} =>
                 {order?.TrxID}
               </p>
@@ -223,17 +234,15 @@ const OrderView = () => {
                 fullWidth
                 variant="standard"
               />
-              <TextField
-                mx={{ mt: 2 }}
-                id="standard-multiline-static"
-                label="Order Deliver Info.."
-                multiline
-                rows={4}
-                required
-                onBlur={(e) => setOrderInfo(e.target.value)}
-                fullWidth
-                variant="standard"
-              />
+              <div className="mt-2">
+                <Editor
+                  className="p-2"
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={onEditorStateChange}
+                />
+              </div>
             </div>
           </div>
         </li>

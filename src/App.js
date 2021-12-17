@@ -19,7 +19,6 @@ import Orders from "./Components/UserDashboard/Orders/Orders";
 import ChangePassword from "./Components/UserDashboard/ChangePassword/ChangePassword";
 import Product from "./Components/Pages/Product/Product";
 import useAuth from "./Hooks/useAuth";
-import SearchPage from "./Components/Pages/SearchPage/SearchPage";
 import UserDashboard from "./Components/UserDashboard/UserDashboard";
 import Cart from "./Components/Cart/Cart";
 import AdminRoute from "./Auth/AdminRoute";
@@ -40,6 +39,9 @@ import Checkout from "./Components/Pages/Checkout/Checkout";
 import Thanks from "./Components/Pages/Checkout/Thanks/Thanks";
 import Order from "./Components/UserDashboard/Orders/Manage/Order/Order";
 import { ToastContainer } from "react-toastify";
+import Privacy from "./Components/Pages/Privacy/Privacy";
+import About from "./Components/Pages/About/About";
+import Terms from "./Components/Pages/Terms/Terms";
 function App() {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -49,6 +51,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/policy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/about" element={<About />} />
         <Route path="/category/:slug" element={<Home />} />
         <Route
           path="/checkout"

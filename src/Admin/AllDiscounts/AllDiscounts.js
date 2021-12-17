@@ -51,7 +51,7 @@ const AllDiscounts = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 

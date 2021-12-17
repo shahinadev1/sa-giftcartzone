@@ -104,7 +104,7 @@ function useFirebase() {
       })
       .catch((err) => {
         setIsError(true);
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => {
         setIsLoading(false);
@@ -179,7 +179,7 @@ function useFirebase() {
       );
     } catch (error) {
       // set
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -190,6 +190,8 @@ function useFirebase() {
       .then((res) => {
         setIsError(false);
         showTost("Logout successfully.");
+        setUser({});
+        dispatch(updateUser(user));
       })
       .catch((err) => {
         setIsError(true);
@@ -201,48 +203,35 @@ function useFirebase() {
   };
 
   //load admin
-  const fetchAdmin = (user) => {
+  useEffect(() => {
     setIsAdminLoading(true);
     axios
       .get(`https://intense-basin-48901.herokuapp.com/users/${user.email}`)
       .then((res) => {
         if (res.status === 200) {
-          if (res.data.result) {
-            dispatch(updateAdmin(res.data.result));
-            setIsAdmin(res.data.result.isAdmin);
-          }
-        } else {
-          console.log(res);
+          // dispatch(updateAdmin(res.data.result));
+          setIsAdmin(res.data.result.isAdmin);
         }
       })
       .catch((err) => {
-        console.log(err);
-        dispatch(updateAdmin({}));
+        // dispatch(updateAdmin({}));
+        // console.log(err);
       })
       .finally(() => {
         setIsAdminLoading(false);
       });
-  };
+  }, [user]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
-        fetchAdmin(user);
         setUser(user);
         const { displayName, emailVerified, email, photoURL } = user;
-        const data = {
-          displayName,
-          emailVerified,
-          email,
-          photoURL,
-        };
-        dispatch(updateUser(data));
       } else {
         setUser({});
       }
       setIsLoading(false);
     });
-    return () => unsubscribe;
   }, []);
 
   return {

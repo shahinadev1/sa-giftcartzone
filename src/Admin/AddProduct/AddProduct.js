@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import JoditEditor from "jodit-react";
+import "./AddProduct.css";
 
 import {
   TextField,
@@ -16,11 +16,19 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 import "./AddProduct.css";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 const AddProduct = () => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [content, setContent] = useState("");
+  const onEditorStateChange = (state) => {
+    setEditorState(state);
+  };
   const [previewImg, setPreviewImg] = useState(null);
   const [categoryId, setCategoryId] = useState("");
   const [subCategories, setSubCategories] = useState([]);
@@ -48,12 +56,7 @@ const AddProduct = () => {
     };
     render.readAsDataURL(e.target.files[0]);
   };
-  const editor = useRef(null);
-  const [content, setContent] = useState("");
 
-  const config = {
-    readonly: false,
-  };
   const handleUpdate = (img, data, e) => {
     setIsLoading(true);
     const storage = getStorage();
@@ -68,7 +71,7 @@ const AddProduct = () => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log(progress);
+        // console.log(progress);
       },
       (error) => {
         // A full list of error codes is available at
@@ -99,7 +102,7 @@ const AddProduct = () => {
               oldData
             )
             .then((res) => {
-              console.log(res.data.result);
+              // console.log(res.data.result);
               if (res.data.result._id) {
                 Swal.fire({
                   icon: "success",
@@ -172,6 +175,9 @@ const AddProduct = () => {
       });
   }, []);
 
+  useEffect(() => {
+    setContent(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+  }, [editorState]);
   return (
     <div className="mb-10">
       <form className="my-3" onSubmit={handleSubmit}>
@@ -234,7 +240,7 @@ const AddProduct = () => {
           )}
         </div>
         <div className="row mb-3">
-          <div className="col-12">
+          <div className="col-12 shadow-sm">
             {/* <TextField
               id="standard-multiline-static"
               label="Product Description"
@@ -244,14 +250,13 @@ const AddProduct = () => {
               required
               fullWidth
               variant="standard"
-            /> */}
-
-            <JoditEditor
-              ref={editor}
-              value={content}
-              config={config}
-              tabIndex={1} // tabIndex of textarea
-              onChange={(newContent) => setContent(newContent)}
+            /> */}{" "}
+            <Editor
+              className="p-2"
+              editorState={editorState}
+              wrapperClassName="demo-wrapper"
+              editorClassName="demo-editor"
+              onEditorStateChange={onEditorStateChange}
             />
           </div>
         </div>
