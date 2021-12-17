@@ -7,3 +7,4 @@ export { default as AddDiscount } from "./AddDiscount/AddDiscount";
 export { default as ChangePasswordAdmin } from "./ChangePassword/ChangePassword";
 export { default as Dashboard } from "./Home/Home";
 export { default as SubCategory } from "./AddCategory/SubCategory/SubCategory";
+export { default as OrderView } from "./AllOrders/Order/Order";

@@ -27,6 +27,7 @@ import {
   SubCategory,
   ChangePasswordAdmin,
   AllProduct,
+  OrderView,
 } from "./Admin";
 import AllDiscounts from "./Admin/AllDiscounts/AllDiscounts";
 import Checkout from "./Components/Pages/Checkout/Checkout";
@@ -70,6 +71,7 @@ function App() {
           }
         >
           <Route path="add-product" element={<AddProduct />} />
+          <Route path="orders/:id" element={<OrderView />} />
           <Route path="" element={<Dashboard />} />
           <Route path="all-products" element={<AllProduct />} />
           <Route path="add-category" element={<AddCategory />} />
