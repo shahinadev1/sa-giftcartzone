@@ -27,3 +27,23 @@ code {
   place-content: center;
   place-items: center;
 }
+.mobile .chat {
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  background: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  border-radius: 0px;
+  right: 0px;
+  left: auto;
+  max-height: none;
+}
+/* @media (max-width: 576px) {
+  .chat,
+  .start-group {
+    margin: 0 auto !important;
+    width: 100% !important;
+    position: static !important;
+  }
+} */

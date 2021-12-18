@@ -45,7 +45,7 @@ export default function SideBar() {
         <>
           <CategoryLoading key={0 + 3} />
           <CategoryLoading key={1 + 34} />
-          <CategoryLoading key={2 + 33} />
+          <CategoryLoading key={2 + 336} />
           <CategoryLoading key={3 + 88} />
         </>
       ) : (
