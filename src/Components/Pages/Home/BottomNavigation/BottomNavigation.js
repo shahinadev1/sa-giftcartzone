@@ -66,11 +66,13 @@ const MobileMenu = () => {
           <IconButton
             color="inherit"
             onClick={() => {
-              if (user?.email) {
-                if (!isAdmin) {
-                  navigate("/profile");
-                } else {
-                  navigate("/admin");
+              if (!isLoading) {
+                if (user.email) {
+                  if (!isAdmin) {
+                    navigate("/profile");
+                  } else {
+                    navigate("/admin");
+                  }
                 }
               }
             }}
