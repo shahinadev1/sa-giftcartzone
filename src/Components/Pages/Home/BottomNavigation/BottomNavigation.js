@@ -7,9 +7,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import GridViewIcon from "@mui/icons-material/GridView";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Badge from "@mui/material/Badge";
+import LoginIcon from "@mui/icons-material/Login";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import useAuth from "../../../../Hooks/useAuth";
 import { styled } from "@mui/material/styles";
@@ -25,7 +26,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 const MobileMenu = () => {
   const navigate = useNavigate();
-  const { user, isLoading, isAdmin } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const items = useSelector((state) => state.cartReducer);
@@ -63,22 +64,20 @@ const MobileMenu = () => {
             </StyledBadge>
           </IconButton>
           <Box sx={{ flexGrow: 0.2 }} />
-          <IconButton
-            color="inherit"
-            onClick={() => {
-              if (!isLoading) {
-                if (user.email) {
-                  if (!isAdmin) {
-                    navigate("/profile");
-                  } else {
-                    navigate("/admin");
-                  }
-                }
-              }
-            }}
-          >
-            <AccountCircleIcon />
-          </IconButton>
+          {!user.email ? (
+            <LoginIcon onClick={() => navigate("/login")} />
+          ) : !isAdmin ? (
+            <IconButton
+              onClick={() => navigate("/user/profile")}
+              color="inherit"
+            >
+              <AccountCircleIcon />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => navigate("/admin")} color="inherit">
+              <AccountCircleIcon />
+            </IconButton>
+          )}
         </Toolbar>
         <MobileCartModal isOpen={{ open, setOpen }} />
         <MobileCategory isOpen={{ open2, setOpen2 }} />

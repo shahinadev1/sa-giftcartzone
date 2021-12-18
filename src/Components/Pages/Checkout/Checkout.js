@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Checkout.css";
 import { useSelector, useDispatch } from "react-redux";
 import Single from "../../../Components/Cart/CartModal/Single/Single";
@@ -12,7 +12,7 @@ import BTC from "./btc.png";
 import useAuth from "../../../Hooks/useAuth";
 import { toast } from "react-toastify";
 const Checkout = () => {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const products = useSelector((state) => state.cartReducer);
   const navigate = useNavigate();
   const [discountCode, setDiscountCode] = useState("");
@@ -158,6 +158,7 @@ const Checkout = () => {
     formState: { errors },
     watch,
   } = useForm();
+
   if (!products.items.length) navigate("/");
   return (
     <div className="container text-center">

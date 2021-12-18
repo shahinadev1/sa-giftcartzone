@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 const UserDashboard = () => {
   document.body.style.backgroundColor = "#eee";
+
   return (
     <div className="container">
       <div className="row">
