@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./MobileCartModal.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import useAuth from "../../../../../Hooks/useAuth";
 import Single from "../../../../Cart/CartModal/Single/Single";
 import { Button } from "@mui/material";
 const MobileCartModal = ({ isOpen }) => {
@@ -10,6 +10,7 @@ const MobileCartModal = ({ isOpen }) => {
   const { open, setOpen } = isOpen;
   const [close, setClose] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
   const data = useSelector((state) => state.cartReducer);
   return (
     <div
@@ -194,6 +195,9 @@ const MobileCartModal = ({ isOpen }) => {
           onClick={() => {
             setOpen(!open);
             navigate("/checkout");
+            user?.email
+              ? navigate("/checkout")
+              : navigate("/login", { state: "/checkout" });
           }}
         >
           Checkout
