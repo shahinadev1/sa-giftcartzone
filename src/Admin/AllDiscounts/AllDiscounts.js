@@ -60,7 +60,7 @@ const AllDiscounts = () => {
     <>
       <div className="table-responsive-sm mb-10">
         <p>Manage all discounts</p>
-        <table class="table w-100">
+        <table className="table w-100">
           <thead>
             <tr>
               <th scope="col">Name</th>

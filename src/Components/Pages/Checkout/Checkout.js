@@ -176,48 +176,48 @@ const Checkout = () => {
                   you order!
                 </h4>
                 <div className="payment-info-form">
-                  <div class="mb-3">
-                    <label for="name" class="form-label">
+                  <div className="mb-3">
+                    <label for="name" className="form-label">
                       Your name
                     </label>
                     <input
                       type="text"
                       readOnly
                       defaultValue={user?.displayName}
-                      class="form-control"
+                      className="form-control"
                       id="name"
                       aria-describedby="emailHelp"
                     />
                   </div>
-                  <div class="mb-3">
-                    <label for="email" class="form-label">
+                  <div className="mb-3">
+                    <label for="email" className="form-label">
                       Email address
                     </label>
                     <input
                       type="email"
                       readOnly
                       defaultValue={user?.email}
-                      class="form-control"
+                      className="form-control"
                       id="email"
                       aria-describedby="emailHelp"
                     />
                   </div>
-                  <div class="mb-3">
-                    <label for="phone" class="form-label">
+                  <div className="mb-3">
+                    <label for="phone" className="form-label">
                       Phone Number
                     </label>
                     <input
                       {...register("phone", { required: true })}
                       type="number"
-                      class="form-control"
+                      className="form-control"
                       id="phone"
                     />
                     {errors.phone && (
                       <p className="text-danger">Number is required</p>
                     )}
                   </div>
-                  <div class="mb-3">
-                    <label for="phone" class="form-label">
+                  <div className="mb-3">
+                    <label for="phone" className="form-label">
                       Address
                     </label>
                     <textarea
@@ -232,8 +232,8 @@ const Checkout = () => {
                       <p className="text-danger">Address is required</p>
                     )}
                   </div>
-                  <div class="mb-3">
-                    <label for="payment" class="form-label">
+                  <div className="mb-3">
+                    <label for="payment" className="form-label">
                       Select payment method
                     </label>
                     <select
@@ -340,8 +340,8 @@ const Checkout = () => {
                   </div>
                   {watch("paymentMethod") && (
                     <>
-                      <div class="mb-3">
-                        <label for="phone-p" class="form-label">
+                      <div className="mb-3">
+                        <label for="phone-p" className="form-label">
                           {watch("paymentMethod") === "bkash" && "bKash No."}
                           {watch("paymentMethod") === "nagad" && "Nagad No."}
                           {watch("paymentMethod") === "btc" && "BTC Address."}
@@ -349,7 +349,7 @@ const Checkout = () => {
                         <input
                           type="text"
                           {...register("senderNumber", { required: true })}
-                          class="form-control"
+                          className="form-control"
                           id="phone-p"
                         />
                         {errors.senderNumber && (
@@ -357,8 +357,8 @@ const Checkout = () => {
                         )}
                       </div>
                       {watch("paymentMethod") !== "btc" && (
-                        <div class="mb-3">
-                          <label for="trxId" class="form-label">
+                        <div className="mb-3">
+                          <label for="trxId" className="form-label">
                             TrxID
                           </label>
                           <input
@@ -366,7 +366,7 @@ const Checkout = () => {
                               required: true,
                             })}
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             id="trxId"
                           />
                           {errors.TrxID && (
@@ -379,14 +379,14 @@ const Checkout = () => {
                     </>
                   )}
 
-                  <div class="mb-3 form-check">
+                  <div className="mb-3 form-check">
                     <input
                       type="checkbox"
-                      class="form-check-input"
+                      className="form-check-input"
                       id="exampleCheck1"
                       required
                     />
-                    <label class="form-check-label" for="exampleCheck1">
+                    <label className="form-check-label" for="exampleCheck1">
                       Agree with our terms <Link to="/policy">policy</Link>
                     </label>
                   </div>
@@ -437,9 +437,9 @@ const Checkout = () => {
                     Confirm Order
                   </Button>
                 ) : (
-                  <button class="btn btn-primary" type="button" disabled>
+                  <button className="btn btn-primary" type="button" disabled>
                     <span
-                      class="spinner-grow spinner-grow-sm"
+                      className="spinner-grow spinner-grow-sm"
                       role="status"
                       aria-hidden="true"
                     ></span>

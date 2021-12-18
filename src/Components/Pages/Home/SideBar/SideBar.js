@@ -43,10 +43,10 @@ export default function SideBar() {
     <>
       {fetchLoading ? (
         <>
-          <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
-          <CategoryLoading />
+          <CategoryLoading key={0 + 3} />
+          <CategoryLoading key={1 + 34} />
+          <CategoryLoading key={2 + 33} />
+          <CategoryLoading key={3 + 88} />
         </>
       ) : (
         <>
@@ -55,11 +55,15 @@ export default function SideBar() {
           ) : (
             parentCategories.map((parent) => (
               <>
-                <div class="accordion" key={parent._id} id="accordionExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
+                <div
+                  className="accordion"
+                  key={parent._id}
+                  id="accordionExample"
+                >
+                  <div className="accordion-item">
+                    <h2 className="accordion-header" id="headingOne">
                       <button
-                        class="accordion-button"
+                        className="accordion-button"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target={`#collapse-${parent._id}`}
@@ -71,11 +75,11 @@ export default function SideBar() {
                     </h2>
                     <div
                       id={`collapse-${parent._id}`}
-                      class="accordion-collapse collapse show"
+                      className="accordion-collapse collapse show"
                       aria-labelledby="headingOne"
                       data-bs-parent="#accordionExample"
                     >
-                      <div class="accordion-body">
+                      <div className="accordion-body">
                         {subCategories.map((subC) => (
                           <div key={subC._id}>
                             {subC.parentId === parent._id && (

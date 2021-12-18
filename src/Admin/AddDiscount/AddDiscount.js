@@ -157,12 +157,12 @@ const AddDiscount = () => {
           </div>
           {isLoading ? (
             <button
-              class="btn btn-primary d-block my-2 mx-auto"
+              className="btn btn-primary d-block my-2 mx-auto"
               type="button"
               disabled
             >
               <span
-                class="spinner-grow spinner-grow-sm"
+                className="spinner-grow spinner-grow-sm"
                 role="status"
                 aria-hidden="true"
               ></span>

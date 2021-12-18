@@ -173,7 +173,7 @@ const AllCategory = () => {
     <>
       <div className="table-responsive-sm mb-10">
         <p>Manage all category</p>
-        <table class="table w-100">
+        <table className="table w-100">
           <thead>
             <tr>
               <th scope="col">Name</th>
@@ -201,7 +201,7 @@ const AllCategory = () => {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-primary bg-transparent"
+                        className="btn btn-primary bg-transparent"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                         onClick={() => {
@@ -221,9 +221,9 @@ const AllCategory = () => {
               subCategories.length === 0 ? (
                 <p>No Sub Category Found!</p>
               ) : (
-                <div class="text-center">
-                  <div class="spinner-border" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                <div className="text-center">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
                   </div>
                 </div>
               )
@@ -243,7 +243,7 @@ const AllCategory = () => {
                     </button>
                     <button
                       type="button"
-                      class="btn btn-primary bg-transparent"
+                      className="btn btn-primary bg-transparent"
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
                       onClick={() => setId(sub._id)}
@@ -263,62 +263,62 @@ const AllCategory = () => {
       </div>
       {/* <!-- Modal --> */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Update Category
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form onSubmit={handleSubmit}>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Id
                   </label>
                   <input
                     type="text"
                     readOnly
                     value={id}
-                    class="form-control"
+                    className="form-control"
                     id="recipient-name"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
+                <div className="mb-3">
+                  <label for="message-text" className="col-form-label">
                     Name:
                   </label>
                   <input
                     onChange={(e) => setName(e.target.value)}
-                    class="form-control"
+                    className="form-control"
                     id="message-text"
                     type="text"
                     defaultValue={defaultName}
                     required
                   />
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                   Save changes
                 </button>
               </form>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 ref={modalRef}
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close

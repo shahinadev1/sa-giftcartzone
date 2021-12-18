@@ -95,14 +95,14 @@ const ContentWrapper = () => {
               >
                 {!products.length > 0 ? (
                   <>
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
-                    <Loading />
+                    <Loading key={0} />
+                    <Loading key={1} />
+                    <Loading key={2} />
+                    <Loading key={3} />
+                    <Loading key={4} />
+                    <Loading key={5} />
+                    <Loading key={6} />
+                    <Loading key={7} />
                   </>
                 ) : products.length === 0 ? (
                   <p>No product found!</p>

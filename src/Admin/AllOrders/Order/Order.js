@@ -76,8 +76,8 @@ const OrderView = () => {
   return (
     <div>
       <h4 className="text-center mt-2">Update Order</h4>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>ID</strong>
@@ -87,7 +87,7 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Name</strong>
@@ -97,7 +97,7 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Email</strong>
@@ -107,7 +107,7 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Contact</strong>
@@ -117,17 +117,17 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Items</strong>
             </div>
             <div className="col-lg-10">
-              <div class="row row-cols-1 row-cols-lg-3 g-4">
+              <div className="row row-cols-1 row-cols-lg-3 g-4">
                 {order?.order_products?.map((product) => (
                   <div className="col">
                     <div
-                      class="card shadow"
+                      className="card shadow"
                       style={{ height: "233px !important" }}
                     >
                       <img
@@ -137,19 +137,19 @@ const OrderView = () => {
                           display: "block",
                           margin: "0 auto",
                         }}
-                        class="card-img-top"
+                        className="card-img-top"
                         alt="..."
                       />
-                      <div class="card-body">
+                      <div className="card-body">
                         <p className="m-0">
                           <b>Name:</b>
-                          <span class="product-title">
+                          <span className="product-title">
                             {product?.name?.slice(0, 16)}
                           </span>
                         </p>
                         <p className="m-0">
                           <b>Desc:</b>
-                          <span class="product-title">
+                          <span className="product-title">
                             {product?.description?.slice(0, 19)}
                           </span>
                         </p>
@@ -164,7 +164,7 @@ const OrderView = () => {
                         </p>
                         <p className="m-0">
                           <b>Delivery time:</b>
-                          <span class="product-title">
+                          <span className="product-title">
                             {product?.deliveryTime}
                           </span>
                         </p>
@@ -176,7 +176,7 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Total($)</strong>
@@ -186,7 +186,7 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Payment info</strong>
@@ -200,7 +200,7 @@ const OrderView = () => {
           </div>
         </li>
 
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Address</strong>
@@ -210,7 +210,7 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item">
+        <li className="list-group-item">
           <div className="row">
             <div className="col-lg-2">
               <strong>Order Date</strong>
@@ -220,7 +220,10 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item" style={{ marginBottom: "50px !important" }}>
+        <li
+          className="list-group-item"
+          style={{ marginBottom: "50px !important" }}
+        >
           <div className="row">
             <div className="col-lg-2">
               <strong>Delivery Info..</strong>
@@ -246,7 +249,10 @@ const OrderView = () => {
             </div>
           </div>
         </li>
-        <li class="list-group-item" style={{ marginBottom: "50px !important" }}>
+        <li
+          className="list-group-item"
+          style={{ marginBottom: "50px !important" }}
+        >
           <div className="row">
             <div className="col-lg-2">
               <strong>Status</strong>

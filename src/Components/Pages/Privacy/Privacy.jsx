@@ -5,10 +5,10 @@ const Privacy = () => {
   return (
     <div className="container mb-5 overflow-hidden">
       <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-          <div class="container-fluid">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
+          <div className="container-fluid">
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarTogglerDemo02"
@@ -16,26 +16,34 @@ const Privacy = () => {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
                   <Link
-                    class="nav-link active"
+                    className="nav-link active"
                     aria-current="page"
                     to="/policy"
                   >
                     Privacy
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link active" aria-current="page" to="/terms">
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/terms"
+                  >
                     Terms and Conditions
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link active" aria-current="page" to="/about">
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to="/about"
+                  >
                     About us
                   </Link>
                 </li>

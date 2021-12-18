@@ -29,7 +29,7 @@ const MobileCartModal = ({ isOpen }) => {
         </button>
       </div>
       <div className="mobile card-body">
-        <ul class="list-group">
+        <ul className="list-group">
           {products.length > 0 ? (
             <>
               {products.map((p) => (

@@ -107,7 +107,7 @@ const AllProduct = () => {
     <>
       <div className="table-responsive-sm mb-10 ">
         <p>Manage All products</p>
-        <table class="table table-striped w-100 bg-light table-bordered">
+        <table className="table table-striped w-100 bg-light table-bordered">
           <thead>
             <tr>
               <th scope="col">thumbnail</th>
@@ -174,93 +174,93 @@ const AllProduct = () => {
       </div>
       {/* <!-- Modal --> */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Update Product
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <form onSubmit={handleSubmit}>
-                <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">
+                <div className="mb-3">
+                  <label for="recipient-name" className="col-form-label">
                     Id
                   </label>
                   <input
                     type="text"
                     readOnly
                     value={id}
-                    class="form-control"
+                    className="form-control"
                     id="recipient-name"
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
+                <div className="mb-3">
+                  <label for="message-text" className="col-form-label">
                     Name:
                   </label>
                   <input
                     onBlur={(e) => setName(e.target.value)}
-                    class="form-control"
+                    className="form-control"
                     id="message-text"
                     type="text"
                     defaultValue={defaultName}
                     required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
+                <div className="mb-3">
+                  <label for="message-text" className="col-form-label">
                     Price:
                   </label>
                   <input
                     onBlur={(e) => setPrice(e.target.value)}
-                    class="form-control"
+                    className="form-control"
                     id="message-text"
                     type="number"
                     defaultValue={defaultPrice}
                     required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
+                <div className="mb-3">
+                  <label for="message-text" className="col-form-label">
                     Regular Price:
                   </label>
                   <input
                     onBlur={(e) => setRegularPrice(e.target.value)}
-                    class="form-control"
+                    className="form-control"
                     id="message-text"
                     type="text"
                     defaultValue={defaultRegularPrice}
                     required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
+                <div className="mb-3">
+                  <label for="message-text" className="col-form-label">
                     Product Qty:
                   </label>
                   <input
                     onBlur={(e) => setProductQty1(e.target.value)}
-                    class="form-control"
+                    className="form-control"
                     id="message-text"
                     type="number"
                     defaultValue={defaultQty}
                     required
                   />
                 </div>
-                <div class="mb-3">
-                  <label for="message-text" class="col-form-label">
+                <div className="mb-3">
+                  <label for="message-text" className="col-form-label">
                     Category:
                   </label>
                   <select
@@ -284,16 +284,16 @@ const AllProduct = () => {
                     ))}
                   </select>
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" className="btn btn-primary">
                   Save changes
                 </button>
               </form>
             </div>
-            <div class="modal-footer mb-5">
+            <div className="modal-footer mb-5">
               <button
                 ref={closeModalRef}
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close

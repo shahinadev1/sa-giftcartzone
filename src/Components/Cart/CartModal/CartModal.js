@@ -31,7 +31,7 @@ const CartModal = ({ isOpen, products }) => {
         </button>
       </div>
       <div className="card-body">
-        <ul class="list-group">
+        <ul className="list-group">
           {products.length > 0 ? (
             <>
               {products.map((p) => (

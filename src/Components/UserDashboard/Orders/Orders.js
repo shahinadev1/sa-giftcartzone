@@ -41,7 +41,7 @@ const Orders = () => {
         </div>
       ) : (
         <div className="table-responsive ">
-          <table class="table table-striped table-hover w-100">
+          <table className="table table-striped table-hover w-100">
             <thead>
               <tr>
                 <th scope="col">#</th>

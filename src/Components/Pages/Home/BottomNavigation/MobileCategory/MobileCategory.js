@@ -74,14 +74,14 @@ const MobileCategory = ({ isOpen }) => {
                 parentCategories.map((parent) => (
                   <>
                     <div
-                      class="accordion"
+                      className="accordion"
                       key={parent._id}
                       id="accordionExample"
                     >
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
+                      <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingOne">
                           <button
-                            class="accordion-button"
+                            className="accordion-button"
                             type="button"
                             data-bs-toggle="collapse"
                             data-bs-target={`#collapse-${parent._id}`}
@@ -93,11 +93,11 @@ const MobileCategory = ({ isOpen }) => {
                         </h2>
                         <div
                           id={`collapse-${parent._id}`}
-                          class="accordion-collapse collapse show"
+                          className="accordion-collapse collapse show"
                           aria-labelledby="headingOne"
                           data-bs-parent="#accordionExample"
                         >
-                          <div class="accordion-body">
+                          <div className="accordion-body">
                             {subCategories.map((subC) => (
                               <div key={subC._id}>
                                 {subC.parentId === parent._id && (

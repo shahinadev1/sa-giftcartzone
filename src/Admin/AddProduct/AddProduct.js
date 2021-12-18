@@ -297,9 +297,9 @@ const AddProduct = () => {
           </Select>
         </FormControl>
         {isLoading ? (
-          <button class="btn btn-primary my-3" type="button" disabled>
+          <button className="btn btn-primary my-3" type="button" disabled>
             <span
-              class="spinner-border spinner-border-sm"
+              className="spinner-border spinner-border-sm"
               role="status"
               aria-hidden="true"
             ></span>
